@@ -28,7 +28,7 @@ jobs:
       - name: Copy application.yml from GitHub Secrets
         run: |
           mkdir -p ./src/main/resources
-          echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.properties
 
       - name: Run Tests
         run: ./gradlew test
