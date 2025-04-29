@@ -48,7 +48,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant permission to gradlew
-        run: chmod +x ./backend/gradlew
+        run: chmod +x ./Backend/gradlew
 
       - name: Setup Gradle with caching
         uses: gradle/actions/setup-gradle@v4
