@@ -60,13 +60,13 @@ jobs:
       - name: Build Project
         run: ./gradlew build
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend-build
-          path: ./build/libs/*.jar
+      - name: Build Docker image
+        run: docker build -t myapp .
 
-      - name: Deploy to EC2
+      - name: Save Docker image as tar file
+        run: docker save myapp > myapp.tar
+
+      - name: Send Docker image to EC2
         env:
           PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           HOST: ${{ secrets.EC2_HOST }}
@@ -74,21 +74,19 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
+          scp -i private_key.pem -o StrictHostKeyChecking=no myapp.tar $USER@$HOST:/home/$USER/
 
-          # plain.jar 제외한 jar 파일 선택
-          JAR_FILE=$(find ./build/libs -name "*.jar" ! -name "*-plain.jar" | head -n 1)
-
-          # EC2에 jar 파일 전송
-          scp -i private_key.pem -o StrictHostKeyChecking=no $JAR_FILE $USER@$HOST:/home/$USER/app.jar
-
-          # EC2에서 기존 프로세스 종료 후 새로 실행
+      - name: Deploy on EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          HOST: ${{ secrets.EC2_HOST }}
+          USER: ${{ secrets.EC2_USER }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
-            PID=$(pgrep -f 'app.jar')
-            if [ -n "$PID" ]; then
-              kill -9 $PID
-              echo "Stopped existing application: $PID"
-            fi
-            nohup java -jar /home/$USER/app.jar > app.log 2>&1 &
-            echo "New application deployed and started"
+            docker load < myapp.tar
+            docker stop myapp || true
+            docker rm myapp || true
+            docker run -d --name myapp -p 8080:8080 myapp
           EOF
-
