@@ -82,9 +82,16 @@ jobs:
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST << EOF
-            echo "\$DOCKER_HUB_USERNAME"
-            docker pull \$DOCKER_HUB_USERNAME/myapp:latest
+            # 로그로 사용자 이름 출력
+            echo "Docker Hub username: $DOCKER_HUB_USERNAME"
+          
+            # Docker 이미지 풀
+            docker pull "$DOCKER_HUB_USERNAME/myapp:latest"
+          
+            # 기존 컨테이너 종료 및 삭제
             docker stop myapp || true
             docker rm myapp || true
-            docker run -d --name myapp -p 8080:8080 \$DOCKER_HUB_USERNAME/myapp:latest
+          
+            # 새로운 컨테이너 실행
+            docker run -d --name myapp -p 8080:8080 "$DOCKER_HUB_USERNAME/myapp:latest"
           EOF
