@@ -57,7 +57,7 @@ jobs:
           mkdir -p ./src/main/resources
           echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.properties
 
-      - name: **Build Project with Gradle**   # ✅ 추가된 빌드
+      - name: Build Project with Gradle
         run: ./gradlew clean build
 
       - name: Build Docker image
