@@ -21,7 +21,6 @@ jobs:
 
       - name: Grant permission to gradlew
         run: chmod +x ./gradlew
-        working-directory: ./backend
 
       - name: Setup Gradle with caching
         uses: gradle/actions/setup-gradle@v4
