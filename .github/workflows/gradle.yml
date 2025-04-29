@@ -20,8 +20,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant permission to gradlew
-        run: chmod +x ./gradlew
-        working-directory: ./server
+        run: chmod +x ./backend/gradlew
 
       - name: Setup Gradle with caching
         uses: gradle/actions/setup-gradle@v4
@@ -29,7 +28,7 @@ jobs:
       - name: Copy application.yml from GitHub Secrets
         run: |
           mkdir -p ./backend/src/main/resources
-          echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./backend/src/main/resources/application.properties
+          echo "${{ secrets.APPLICATION_YML }}" > ./backend/src/main/resources/application.yml
 
       - name: Run Tests
         run: ./gradlew test
@@ -49,8 +48,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant permission to gradlew
-        run: chmod +x ./gradlew
-        working-directory: ./backend
+        run: chmod +x ./backend/gradlew
 
       - name: Setup Gradle with caching
         uses: gradle/actions/setup-gradle@v4
@@ -73,11 +71,14 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          
+
+          # plain.jar 제외한 jar 파일 선택
           JAR_FILE=$(find ./backend/build/libs -name "*.jar" ! -name "*-plain.jar" | head -n 1)
-          
-          scp -i private_key.pem -o StrictHostKeyChecking=no ./backend/build/libs/*.jar $USER@$HOST:/home/$USER/app.jar
-          
+
+          # EC2에 jar 파일 전송
+          scp -i private_key.pem -o StrictHostKeyChecking=no $JAR_FILE $USER@$HOST:/home/$USER/app.jar
+
+          # EC2에서 기존 프로세스 종료 후 새로 실행
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
             PID=$(pgrep -f 'app.jar')
             if [ -n "$PID" ]; then
@@ -87,3 +88,4 @@ jobs:
             nohup java -jar /home/$USER/app.jar > app.log 2>&1 &
             echo "New application deployed and started"
           EOF
+
