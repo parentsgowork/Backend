@@ -74,7 +74,8 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          scp -i private_key.pem -o StrictHostKeyChecking=no myapp.tar $USER@$HOST:/home/$USER/
+          rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" ./ $USER@$HOST:/home/$USER/app/
+
 
       - name: Deploy on EC2
         env:
@@ -85,7 +86,8 @@ jobs:
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
-            docker load < myapp.tar
+            cd /home/$USER/app
+            docker build -t myapp .
             docker stop myapp || true
             docker rm myapp || true
             docker run -d --name myapp -p 8080:8080 myapp
