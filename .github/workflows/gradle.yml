@@ -20,19 +20,19 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant permission to gradlew
-        run: chmod +x ./backend/gradlew
+        run: chmod +x ./Backend/gradlew
 
       - name: Setup Gradle with caching
         uses: gradle/actions/setup-gradle@v4
 
       - name: Copy application.yml from GitHub Secrets
         run: |
-          mkdir -p ./backend/src/main/resources
-          echo "${{ secrets.APPLICATION_YML }}" > ./backend/src/main/resources/application.yml
+          mkdir -p ./Backend/src/main/resources
+          echo "${{ secrets.APPLICATION_YML }}" > ./Backend/src/main/resources/application.yml
 
       - name: Run Tests
         run: ./gradlew test
-        working-directory: ./backend
+        working-directory: ./Backend
 
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -55,13 +55,13 @@ jobs:
 
       - name: Build Project
         run: ./gradlew build
-        working-directory: ./backend
+        working-directory: ./Backend
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: backend-build
-          path: ./backend/build/libs/*.jar
+          path: ./Backend/build/libs/*.jar
 
       - name: Deploy to EC2
         env:
@@ -73,7 +73,7 @@ jobs:
           chmod 600 private_key.pem
 
           # plain.jar 제외한 jar 파일 선택
-          JAR_FILE=$(find ./backend/build/libs -name "*.jar" ! -name "*-plain.jar" | head -n 1)
+          JAR_FILE=$(find ./Backend/build/libs -name "*.jar" ! -name "*-plain.jar" | head -n 1)
 
           # EC2에 jar 파일 전송
           scp -i private_key.pem -o StrictHostKeyChecking=no $JAR_FILE $USER@$HOST:/home/$USER/app.jar
