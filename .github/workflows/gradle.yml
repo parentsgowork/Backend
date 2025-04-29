@@ -82,6 +82,7 @@ jobs:
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST << EOF
+            echo "\$DOCKER_HUB_USERNAME"
             docker pull \$DOCKER_HUB_USERNAME/myapp:latest
             docker stop myapp || true
             docker rm myapp || true
