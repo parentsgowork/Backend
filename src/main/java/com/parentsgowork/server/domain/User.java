@@ -1,4 +1,4 @@
-package com.parentsgowork.server.project.domain;
+package com.parentsgowork.server.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
