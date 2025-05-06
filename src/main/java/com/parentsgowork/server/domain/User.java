@@ -2,6 +2,8 @@ package com.parentsgowork.server.domain;
 
 import com.parentsgowork.server.domain.common.BaseEntity;
 import com.parentsgowork.server.domain.enums.Gender;
+import com.parentsgowork.server.domain.enums.Role;
+import com.parentsgowork.server.domain.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -45,6 +47,13 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     private String finalEdu;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     // refreshToken 부분은 추후에 수정
     @Column(columnDefinition = "Text")
