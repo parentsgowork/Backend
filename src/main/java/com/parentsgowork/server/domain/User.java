@@ -27,18 +27,24 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private int age;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Gender gender;
 
     @Column(nullable = false)
-    private int age;
+    private String region;
+
+    @Column(nullable = false)
+    private String job;
 
     @Column(nullable = false)
     private String career;
 
     @Column(nullable = false)
-    private String region;
+    private String finalEdu;
 
     // refreshToken 부분은 추후에 수정
     @Column(columnDefinition = "Text")

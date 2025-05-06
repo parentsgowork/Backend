@@ -24,7 +24,6 @@ public class Resume extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String title;
 
-    @Lob
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
