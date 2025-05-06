@@ -39,6 +39,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
 
+	// validation 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 }
 
 
