@@ -11,6 +11,7 @@ import com.parentsgowork.server.service.refreshTokenService.RefreshTokenCommandS
 import com.parentsgowork.server.util.JwtTokenUtil;
 import com.parentsgowork.server.web.dto.TokenDTO.TokenResponseDTO;
 import com.parentsgowork.server.web.dto.UserDTO.UserRequestDTO;
+import com.parentsgowork.server.web.dto.UserDTO.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -117,6 +118,21 @@ public class UserCommandServiceImpl implements UserCommandService {
                 user.get().encodePassword(hashedPassword); //사용자 비밀번호 변경
             }
         }
+    }
+
+    @Override
+    public UserResponseDTO.DeleteUserResponseDTO delete(Long userId) {
+
+        // userId를 통해 조회하고 없으면 오류
+        User deleteUser = userRepository.findById(userId)
+                .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
+
+        // status를 inactive로 변경
+        checkUserInactive(deleteUser); //이미 탈퇴한 회원인지 확인
+        deleteUser.deleteAccount();
+        userRepository.save(deleteUser);
+
+        return UserConverter.toDeletedUser(deleteUser);
     }
 
     /**
