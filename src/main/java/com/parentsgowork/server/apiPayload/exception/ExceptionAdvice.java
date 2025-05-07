@@ -1,4 +1,4 @@
-package com.parentsgowork.server.apiPayload.handler;
+package com.parentsgowork.server.apiPayload.exception;
 
 import com.parentsgowork.server.apiPayload.ApiResponse;
 import com.parentsgowork.server.apiPayload.code.ErrorReasonDTO;
