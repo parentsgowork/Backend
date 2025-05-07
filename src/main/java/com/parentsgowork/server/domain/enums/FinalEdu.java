@@ -14,7 +14,4 @@ public enum FinalEdu {
         this.description = description;
     }
 
-    public String getDescription() {
-        return description;
-    }
 }

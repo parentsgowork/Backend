@@ -1,6 +1,7 @@
 package com.parentsgowork.server.domain;
 
 import com.parentsgowork.server.domain.common.BaseEntity;
+import com.parentsgowork.server.domain.enums.ResumeCategory;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -27,7 +28,7 @@ public class Resume extends BaseEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    //@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String type;
+    private ResumeCategory resumeCategory;
 }
