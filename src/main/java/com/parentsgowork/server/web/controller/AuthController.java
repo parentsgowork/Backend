@@ -5,6 +5,7 @@ import com.parentsgowork.server.domain.enums.AuthType;
 import com.parentsgowork.server.service.authService.AuthService;
 import com.parentsgowork.server.service.refreshTokenService.RefreshTokenCommandService;
 import com.parentsgowork.server.service.userService.UserCommandService;
+import com.parentsgowork.server.web.controller.specification.AuthSpecification;
 import com.parentsgowork.server.web.dto.AuthDTO.AuthRequestDTO;
 import com.parentsgowork.server.web.dto.AuthDTO.AuthResponseDTO;
 import com.parentsgowork.server.web.dto.TokenDTO.TokenRequestDTO;
@@ -21,29 +22,33 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthController implements AuthSpecification {
     private final UserCommandService userCommandService;
     private final AuthService authService;
     private final RefreshTokenCommandService refreshTokenCommandService;
 
+    @Override
     @PostMapping("/login")
     public ApiResponse<TokenResponseDTO.TokenDTO> loginEmail(@RequestBody @Valid UserRequestDTO.EmailLoginDTO emailLoginDTO) {
         TokenResponseDTO.TokenDTO tokenDTO = userCommandService.loginEmail(emailLoginDTO);
         return ApiResponse.onSuccess(tokenDTO);
     }
 
+    @Override
     @PostMapping("/signup")
     public ApiResponse<TokenResponseDTO.TokenDTO> signupEmail(@RequestBody @Valid UserRequestDTO.UserInfoDTO userInfoDTO) {
         TokenResponseDTO.TokenDTO tokenDTO = userCommandService.signupEmail(userInfoDTO);
         return ApiResponse.onSuccess(tokenDTO);
     }
 
+    @Override
     @PostMapping("/reissue")
     public ApiResponse<TokenResponseDTO.AccessTokenDTO> reissueToken(@RequestBody @Valid TokenRequestDTO.ReissueDTO reissueDTO) {
         TokenResponseDTO.AccessTokenDTO accessTokenDTO = refreshTokenCommandService.reissueToken(reissueDTO);
         return ApiResponse.onSuccess(accessTokenDTO);
     }
 
+    @Override
     @PostMapping("/email")
     public ApiResponse<AuthResponseDTO.SendAuthEmailResponseDTO> sendAuthEmail(
             @RequestParam AuthType type,
@@ -53,6 +58,7 @@ public class AuthController {
         return ApiResponse.onSuccess(result);
     }
 
+    @Override
     @PostMapping("/verification")
     public ApiResponse<AuthResponseDTO.VerifyAuthCodeResponseDTO> verifyAuthCode(
             @RequestBody @Valid AuthRequestDTO.VerifyAuthCodeRequestDTO request) {
