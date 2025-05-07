@@ -2,6 +2,7 @@ package com.parentsgowork.server.converter;
 
 import com.parentsgowork.server.domain.User;
 import com.parentsgowork.server.web.dto.UserDTO.UserRequestDTO;
+import com.parentsgowork.server.web.dto.UserDTO.UserResponseDTO;
 
 import static com.parentsgowork.server.domain.enums.Role.USER;
 import static com.parentsgowork.server.domain.enums.UserStatus.ACTIVE;
@@ -23,4 +24,10 @@ public class UserConverter {
                 .build();
     }
 
+    public static UserResponseDTO.DeleteUserResponseDTO toDeletedUser(User deleteUser) {
+        return UserResponseDTO.DeleteUserResponseDTO.builder()
+                .name(deleteUser.getName())
+                .message("회원탈퇴가 완료되었습니다.")
+                .build();
+    }
 }

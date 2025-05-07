@@ -7,6 +7,8 @@ import lombok.*;
 
 import java.util.List;
 
+import static com.parentsgowork.server.domain.enums.UserStatus.ACTIVE;
+
 @Entity
 @Getter
 @Builder
@@ -74,6 +76,12 @@ public class User extends BaseEntity {
 
     public void encodePassword(String password) {
         this.password = password;
+    }
+
+    public void deleteAccount() {
+        if (this.status == ACTIVE) {
+            this.status = UserStatus.INACTIVE;
+        }
     }
 
     public void deleteRefreshToken() {

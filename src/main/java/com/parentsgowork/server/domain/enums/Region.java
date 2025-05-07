@@ -18,7 +18,4 @@ public enum Region {
         this.areaGroup = areaGroup;
     }
 
-    public String getAreaGroup() {
-        return areaGroup;
-    }
 }
