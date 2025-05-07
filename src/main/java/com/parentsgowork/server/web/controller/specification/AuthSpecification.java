@@ -21,7 +21,10 @@ public interface AuthSpecification {
 
     @PostMapping("/signup")
     @SecurityRequirement(name = "")
-    @Operation(summary = "이메일 회원가입 API", description = "양식에 맞게 정보를 입력해주세요.", security = @SecurityRequirement(name = ""))
+    @Operation(summary = "이메일 회원가입 API", description = "양식에 맞게 정보를 입력해주세요. <br>" +
+            "<b>비밀번호</b>는 8자~30자 사이입니다. <b>gender</b>는 MALE 또는 FEMALE을 입력해주세요. <br>" +
+            "<b>region</b>은 [수도권] SEOUL, GYEONGGI, INCHEON / [강원권] GANGWON / [충청권] DAEJEON, SEJONG, CHUNGBUK 중에서 입력해주세요. <br>" +
+            "<b>finalEdu</b>는 [고등학교 졸업] HIGH_SCHOOL / [전문대학 졸업] ASSOCIATE / [대학교 졸업] BACHELOR / [석사 학위] MASTER / [박사 학위] DOCTOR 중에서 입력해주세요. ", security = @SecurityRequirement(name = ""))
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH4001", description = "❌ 이메일 인증을 완료해주세요.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),

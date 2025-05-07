@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 public class AuthResponseDTO {
+
     // 이메일 인증 전송 응답 DTO
     @Getter
     @Builder
