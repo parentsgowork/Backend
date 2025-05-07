@@ -1,9 +1,7 @@
 package com.parentsgowork.server.domain;
 
 import com.parentsgowork.server.domain.common.BaseEntity;
-import com.parentsgowork.server.domain.enums.Gender;
-import com.parentsgowork.server.domain.enums.Role;
-import com.parentsgowork.server.domain.enums.UserStatus;
+import com.parentsgowork.server.domain.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,8 +21,8 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String name;
 
-    @Column(nullable = false)
-    private String phoneNum;
+    @Column(unique = true, length = 50)
+    private String primaryEmail;
 
     @Column(nullable = false)
     private String password;
@@ -36,17 +34,19 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private Gender gender;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String region;
+    private Region region;
 
     @Column(nullable = false)
     private String job;
 
     @Column(nullable = false)
-    private String career;
+    private Integer career;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String finalEdu;
+    private FinalEdu finalEdu;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -55,9 +55,10 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    // refreshToken 부분은 추후에 수정
-    @Column(columnDefinition = "Text")
-    private String refreshToken;
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "refresh_token_id")
+    private RefreshToken refreshToken;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserBookmark> bookmarks;
@@ -70,4 +71,12 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Resume> resumes;
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
+
+    public void deleteRefreshToken() {
+        this.refreshToken = null;
+    }
 }
