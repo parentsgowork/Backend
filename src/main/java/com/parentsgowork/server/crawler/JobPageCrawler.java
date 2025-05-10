@@ -45,9 +45,16 @@ public class JobPageCrawler {
                 String pay = card.findElement(By.cssSelector("li.dollar span.item")).getText();
                 String time = card.findElement(By.cssSelector("li.time span.item.sm:nth-of-type(1)")).getText();
                 String location = card.findElement(By.cssSelector("li.site p")).getText();
-                String deadline = card.findElement(By.cssSelector("p[class='s1_r']")).getText();
 
-                System.out.println(company + " / " + title + " / " + pay + " / " + time + " / " + location + " / " + deadline);
+                String deadline = "", registrationDate = "";
+
+                List<WebElement> dateElements = card.findElements(By.cssSelector("p[class='s1_r']"));
+                if (dateElements.size() >= 2) {
+                    deadline = dateElements.get(0).getText();
+                    registrationDate = dateElements.get(1).getText();
+                }
+
+                System.out.println(company + " / " + title + " / " + pay + " / " + time + " / " + location + " / " + deadline + " / " + registrationDate);
 
                 jobs.add(
                         JobCrawlingDTO.JobInfoDTO.builder()
@@ -57,6 +64,7 @@ public class JobPageCrawler {
                                 .workTime(time)
                                 .location(location)
                                 .deadline(deadline)
+                                .registrationDate(registrationDate)
                                 .build()
                 );
             }

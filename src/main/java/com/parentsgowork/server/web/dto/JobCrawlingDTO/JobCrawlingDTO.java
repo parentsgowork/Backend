@@ -16,6 +16,7 @@ public class JobCrawlingDTO {
         private String workTime;
         private String location;
         private String deadline;
+        private String registrationDate;
     }
 
 }
