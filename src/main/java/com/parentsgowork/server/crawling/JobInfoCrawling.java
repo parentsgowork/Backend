@@ -68,6 +68,14 @@ public class JobPageCrawling {
                                 .build()
                 );
             }
+        } catch (NoSuchElementException e) {
+            throw new BusinessException(ErrorStatus.CRAWLING_ELEMENT_NOT_FOUND);
+        } catch (TimeoutException e) {
+            throw new BusinessException(ErrorStatus.CRAWLING_TIMEOUT);
+        } catch (SessionNotCreatedException e) {
+            throw new BusinessException(ErrorStatus.CRAWLING_SESSION_FAIL);
+        } catch (Exception e) {
+            throw new BusinessException(ErrorStatus.CRAWLING_UNKNOWN_ERROR);
         } finally {
             WebDriverUtil.quit(driver);
         }
