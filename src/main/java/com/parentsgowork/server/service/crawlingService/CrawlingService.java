@@ -1,4 +1,4 @@
-package com.parentsgowork.server.service;
+package com.parentsgowork.server.service.crawlingService;
 
 import com.parentsgowork.server.crawler.JobPageCrawler;
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO;

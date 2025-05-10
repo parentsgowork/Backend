@@ -1,7 +1,7 @@
 package com.parentsgowork.server.web.controller;
 
 import com.parentsgowork.server.apiPayload.ApiResponse;
-import com.parentsgowork.server.service.CrawlingService;
+import com.parentsgowork.server.service.crawlingService.CrawlingService;
 import com.parentsgowork.server.web.controller.specification.CrawlerSpecification;
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
