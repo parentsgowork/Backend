@@ -43,7 +43,18 @@ public enum ErrorStatus implements BaseErrorCode {
 
     // 이메일 관련 에러
     EMAIL_SEND_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH5001", "이메일 전송에 실패했습니다."),
-    EMAIL_ENCODING_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH5002", "이메일 내용 인코딩에 실패했습니다.");
+    EMAIL_ENCODING_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH5002", "이메일 내용 인코딩에 실패했습니다."),
+
+    // 크롤링 관련 에러
+    CRAWLING_DRIVER_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, "CRAWLING_001", "크롬 드라이버 경로가 설정되지 않았습니다."),
+    CRAWLING_PAGE_LOAD_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"CRAWLING_002", "페이지 로딩 중 오류가 발생했습니다."),
+    CRAWLING_ELEMENT_NOT_FOUND(HttpStatus.NOT_FOUND,"CRAWLING_003", "요소를 찾을 수 없습니다."),
+    CRAWLING_TIMEOUT(HttpStatus.INTERNAL_SERVER_ERROR,"CRAWLING_004", "페이지 로딩 시간이 초과되었습니다."),
+    CRAWLING_SESSION_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"CRAWLING_005", "크롬 드라이버 세션을 시작할 수 없습니다."),
+    CRAWLING_INVALID_SELECTOR(HttpStatus.BAD_REQUEST,"CRAWLING_006", "유효하지 않은 셀렉터입니다."),
+    CRAWLING_NO_RESULTS(HttpStatus.NOT_FOUND,"CRAWLING_007", "크롤링 결과가 존재하지 않습니다."),
+    CRAWLING_UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"CRAWLING_008", "알 수 없는 크롤링 오류가 발생했습니다.");
+
 
 
     private final HttpStatus httpStatus;

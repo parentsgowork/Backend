@@ -1,10 +1,10 @@
 package com.parentsgowork.server.crawling;
 
+import com.parentsgowork.server.apiPayload.code.status.ErrorStatus;
+import com.parentsgowork.server.apiPayload.exception.JobInfoCrawlingHandler;
 import com.parentsgowork.server.util.WebDriverUtil;
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JobPageCrawling {
+public class JobInfoCrawling {
 
     public List<JobCrawlingDTO.JobInfoDTO> crawlJobs(int page) {
         WebDriver driver = WebDriverUtil.getChromeDriver();
@@ -69,13 +69,13 @@ public class JobPageCrawling {
                 );
             }
         } catch (NoSuchElementException e) {
-            throw new BusinessException(ErrorStatus.CRAWLING_ELEMENT_NOT_FOUND);
+            throw new JobInfoCrawlingHandler(ErrorStatus.CRAWLING_ELEMENT_NOT_FOUND);
         } catch (TimeoutException e) {
-            throw new BusinessException(ErrorStatus.CRAWLING_TIMEOUT);
+            throw new JobInfoCrawlingHandler(ErrorStatus.CRAWLING_TIMEOUT);
         } catch (SessionNotCreatedException e) {
-            throw new BusinessException(ErrorStatus.CRAWLING_SESSION_FAIL);
+            throw new JobInfoCrawlingHandler(ErrorStatus.CRAWLING_SESSION_FAIL);
         } catch (Exception e) {
-            throw new BusinessException(ErrorStatus.CRAWLING_UNKNOWN_ERROR);
+            throw new JobInfoCrawlingHandler(ErrorStatus.CRAWLING_UNKNOWN_ERROR);
         } finally {
             WebDriverUtil.quit(driver);
         }
