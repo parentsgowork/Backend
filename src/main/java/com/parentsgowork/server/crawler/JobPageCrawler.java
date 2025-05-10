@@ -1,4 +1,4 @@
-package com.parentsgowork.server.crawling;
+package com.parentsgowork.server.crawler;
 
 import com.parentsgowork.server.util.WebDriverUtil;
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO;
@@ -14,13 +14,27 @@ import java.util.List;
 @Component
 public class JobPageCrawler {
 
-    public List<JobCrawlingDTO.JobInfoDTO> crawlJobs() {
+    public List<JobCrawlingDTO.JobInfoDTO> crawlJobs(int page) {
         WebDriver driver = WebDriverUtil.getChromeDriver();
         List<JobCrawlingDTO.JobInfoDTO> jobs = new ArrayList<>();
 
         try {
-            driver.get("https://www.work24.go.kr/wk/a/b/1200/retriveDtlEmpSrchList.do?basicSetupYn=&careerTo=&keywordJobCd=&occupation=&seqNo=&cloDateEndtParam=&payGbn=&templateInfo=&rot2WorkYn=&shsyWorkSecd=&resultCnt=10&keywordJobCont=&cert=&moreButtonYn=Y&minPay=&codeDepth2Info=11000&currentPageNo=1&eventNo=&mode=&major=&resrDutyExcYn=&eodwYn=&sortField=DATE&staArea=&sortOrderBy=DESC&keyword=&termSearchGbn=&carrEssYns=&benefitSrchAndOr=O&disableEmpHopeGbn=&actServExcYn=&keywordStaAreaNm=&maxPay=&emailApplyYn=&codeDepth1Info=11000&keywordEtcYn=&regDateStdtParam=&publDutyExcYn=&keywordJobCdSeqNo=&viewType=&exJobsCd=&templateDepthNmInfo=&region=&employGbn=&empTpGbcd=1&computerPreferential=&infaYn=&cloDateStdtParam=&siteClcd=all&searchMode=Y&birthFromYY=&indArea=&careerTypes=&subEmpHopeYn=&tlmgYn=&academicGbn=&templateDepthNoInfo=&foriegn=&entryRoute=&mealOfferClcd=&basicSetupYnChk=&station=&holidayGbn=&srcKeyword=&academicGbnoEdu=noEdu&enterPriseGbn=&cloTermSearchGbn=&birthToYY=&keywordWantedTitle=&stationNm=&benefitGbn=&keywordFlag=&notSrcKeyword=&essCertChk=&depth2SelCode=&keywordBusiNm=&preferentialGbn=&rot3WorkYn=&regDateEndtParam=&pfMatterPreferential=B&pageIndex=1&termContractMmcnt=&careerFrom=&laborHrShortYn=#scrollLoc");
+            String url = "https://www.work24.go.kr/wk/a/b/1200/retriveDtlEmpSrchList.do?" +
+                    "basicSetupYn=&careerTo=&keywordJobCd=&occupation=&seqNo=&cloDateEndtParam=&payGbn=&templateInfo=&rot2WorkYn=&shsyWorkSecd=&resultCnt=10" +
+                    "&keywordJobCont=" + (page > 1 ? "N" : "") +
+                    "&cert=&moreButtonYn=Y&minPay=&codeDepth2Info=11000&currentPageNo=1&eventNo=&mode=&major=&resrDutyExcYn=&eodwYn=&sortField=DATE&staArea=&sortOrderBy=DESC&keyword=&termSearchGbn=&carrEssYns=&benefitSrchAndOr=O&disableEmpHopeGbn=&actServExcYn=" +
+                    "&keywordStaAreaNm=" + (page > 1 ? "N" : "") +
+                    "&maxPay=&emailApplyYn=&codeDepth1Info=11000&keywordEtcYn=&regDateStdtParam=&publDutyExcYn=&keywordJobCdSeqNo=&viewType=&exJobsCd=&templateDepthNmInfo=&region=&employGbn=&empTpGbcd=1&computerPreferential=&infaYn=&cloDateStdtParam=&siteClcd=all&searchMode=Y" +
+                    "&birthFromYY=&indArea=&careerTypes=&subEmpHopeYn=&tlmgYn=&academicGbn=&templateDepthNoInfo=&foriegn=&entryRoute=&mealOfferClcd=&basicSetupYnChk=&station=&holidayGbn=&srcKeyword=&academicGbnoEdu=noEdu&enterPriseGbn=&cloTermSearchGbn=&birthToYY=" +
+                    "&keywordWantedTitle=" + (page > 1 ? "N" : "") +
+                    "&stationNm=&benefitGbn=&keywordFlag=&notSrcKeyword=&essCertChk=&depth2SelCode=" +
+                    "&keywordBusiNm=" + (page > 1 ? "N" : "") +
+                    "&preferentialGbn=&rot3WorkYn=&regDateEndtParam=&pfMatterPreferential=B" +
+                    "&pageIndex=" + page +
+                    "&termContractMmcnt=&careerFrom=&laborHrShortYn=#scrollLoc";
 
+
+            driver.get(url);
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
             List<WebElement> jobCards = driver.findElements(By.cssSelector("tr[id^='list']"));

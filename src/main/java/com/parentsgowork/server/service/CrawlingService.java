@@ -1,6 +1,6 @@
 package com.parentsgowork.server.service;
 
-import com.parentsgowork.server.crawling.JobPageCrawler;
+import com.parentsgowork.server.crawler.JobPageCrawler;
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class CrawlingService {
 
     private final JobPageCrawler jobPageCrawler;
 
-    public List<JobCrawlingDTO.JobInfoDTO> getSeniorJobs() {
-        return jobPageCrawler.crawlJobs();
+    public List<JobCrawlingDTO.JobInfoDTO> getSeniorJobs(int page) {
+        return jobPageCrawler.crawlJobs(page);
     }
 }
