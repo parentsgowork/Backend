@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-public interface CrawlerSpecification {
+public interface CrawlingSpecification {
 
     @GetMapping("/senior-jobs")
     @Operation(summary = "50세 이상 우대하는 채용 정보를 조회합니다.")

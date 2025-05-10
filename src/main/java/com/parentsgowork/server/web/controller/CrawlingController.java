@@ -2,7 +2,7 @@ package com.parentsgowork.server.web.controller;
 
 import com.parentsgowork.server.apiPayload.ApiResponse;
 import com.parentsgowork.server.service.crawlingService.CrawlingService;
-import com.parentsgowork.server.web.controller.specification.CrawlerSpecification;
+import com.parentsgowork.server.web.controller.specification.CrawlingSpecification;
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/crawler")
-public class CrawlerController implements CrawlerSpecification {
+public class CrawlingController implements CrawlingSpecification {
 
     private final CrawlingService crawlingService;
 

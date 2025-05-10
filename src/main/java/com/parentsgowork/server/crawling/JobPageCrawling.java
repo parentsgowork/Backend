@@ -1,4 +1,4 @@
-package com.parentsgowork.server.crawler;
+package com.parentsgowork.server.crawling;
 
 import com.parentsgowork.server.util.WebDriverUtil;
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JobPageCrawler {
+public class JobPageCrawling {
 
     public List<JobCrawlingDTO.JobInfoDTO> crawlJobs(int page) {
         WebDriver driver = WebDriverUtil.getChromeDriver();
