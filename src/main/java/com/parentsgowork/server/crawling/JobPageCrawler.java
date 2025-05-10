@@ -1,0 +1,55 @@
+package com.parentsgowork.server.crawling;
+
+import com.parentsgowork.server.util.WebDriverUtil;
+import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.springframework.stereotype.Component;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class JobPageCrawler {
+
+    public List<JobCrawlingDTO.JobInfoDTO> crawlJobs() {
+        WebDriver driver = WebDriverUtil.getChromeDriver();
+        List<JobCrawlingDTO.JobInfoDTO> jobs = new ArrayList<>();
+
+        try {
+            driver.get("https://www.work24.go.kr/wk/a/b/1200/retriveDtlEmpSrchList.do?basicSetupYn=&careerTo=&keywordJobCd=&occupation=&seqNo=&cloDateEndtParam=&payGbn=&templateInfo=&rot2WorkYn=&shsyWorkSecd=&resultCnt=10&keywordJobCont=&cert=&moreButtonYn=Y&minPay=&codeDepth2Info=11000&currentPageNo=1&eventNo=&mode=&major=&resrDutyExcYn=&eodwYn=&sortField=DATE&staArea=&sortOrderBy=DESC&keyword=&termSearchGbn=&carrEssYns=&benefitSrchAndOr=O&disableEmpHopeGbn=&actServExcYn=&keywordStaAreaNm=&maxPay=&emailApplyYn=&codeDepth1Info=11000&keywordEtcYn=&regDateStdtParam=&publDutyExcYn=&keywordJobCdSeqNo=&viewType=&exJobsCd=&templateDepthNmInfo=&region=&employGbn=&empTpGbcd=1&computerPreferential=&infaYn=&cloDateStdtParam=&siteClcd=all&searchMode=Y&birthFromYY=&indArea=&careerTypes=&subEmpHopeYn=&tlmgYn=&academicGbn=&templateDepthNoInfo=&foriegn=&entryRoute=&mealOfferClcd=&basicSetupYnChk=&station=&holidayGbn=&srcKeyword=&academicGbnoEdu=noEdu&enterPriseGbn=&cloTermSearchGbn=&birthToYY=&keywordWantedTitle=&stationNm=&benefitGbn=&keywordFlag=&notSrcKeyword=&essCertChk=&depth2SelCode=&keywordBusiNm=&preferentialGbn=&rot3WorkYn=&regDateEndtParam=&pfMatterPreferential=B&pageIndex=1&termContractMmcnt=&careerFrom=&laborHrShortYn=#scrollLoc");
+
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+            List<WebElement> jobCards = driver.findElements(By.cssSelector("tr[id^='list']"));
+
+            for (WebElement card : jobCards) {
+                String company = card.findElement(By.cssSelector("a.cp_name")).getText();
+                String title = card.findElement(By.cssSelector("a.t3_sb")).getText();
+                String pay = card.findElement(By.cssSelector("li.dollar span.item")).getText();
+                String time = card.findElement(By.cssSelector("li.time span.item.sm:nth-of-type(1)")).getText();
+                String location = card.findElement(By.cssSelector("li.site p")).getText();
+                String deadline = card.findElement(By.cssSelector("p[class='s1_r']")).getText();
+
+                System.out.println(company + " / " + title + " / " + pay + " / " + time + " / " + location + " / " + deadline);
+
+                jobs.add(
+                        JobCrawlingDTO.JobInfoDTO.builder()
+                                .companyName(company)
+                                .jobTitle(title)
+                                .pay(pay)
+                                .workTime(time)
+                                .location(location)
+                                .deadline(deadline)
+                                .build()
+                );
+            }
+        } finally {
+            WebDriverUtil.quit(driver);
+        }
+
+        return jobs;
+    }
+}

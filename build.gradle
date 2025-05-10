@@ -64,6 +64,8 @@ dependencies {
 	// thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+	// selenium 라이브러리
+	implementation 'org.seleniumhq.selenium:selenium-java:4.6.0'
 }
 
 
