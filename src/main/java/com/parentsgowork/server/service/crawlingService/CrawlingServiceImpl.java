@@ -13,6 +13,7 @@ public class CrawlingServiceImpl implements CrawlingService {
 
     private final JobPageCrawling jobPageCrawler;
 
+    @Override
     public List<JobCrawlingDTO.JobInfoDTO> getSeniorJobs(int page) {
         return jobPageCrawler.crawlJobs(page);
     }
