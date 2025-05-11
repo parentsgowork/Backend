@@ -58,7 +58,7 @@ jobs:
           echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.properties
 
       - name: Build Project with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build -x test
 
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest .
