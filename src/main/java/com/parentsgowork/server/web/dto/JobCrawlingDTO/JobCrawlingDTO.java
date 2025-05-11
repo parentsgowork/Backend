@@ -10,6 +10,7 @@ public class JobCrawlingDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class JobInfoDTO {
+        private Long id;
         private String companyName;
         private String jobTitle;
         private String pay;
