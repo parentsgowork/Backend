@@ -1,7 +1,6 @@
 package com.parentsgowork.server.web.controller;
 
 import com.parentsgowork.server.apiPayload.ApiResponse;
-import com.parentsgowork.server.domain.Bookmark;
 import com.parentsgowork.server.service.bookmarkService.BookmarkCommandService;
 import com.parentsgowork.server.service.bookmarkService.BookmarkQueryService;
 import com.parentsgowork.server.web.controller.specification.BookmarkSpecification;
@@ -29,14 +28,17 @@ public class BookmarkController implements BookmarkSpecification {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        return ApiResponse.onSuccess(bookmarkCommandService.bookmarkJob(userId, request.getJobId(), request.getPage()));
+        BookmarkRequestDTO.BookmarkDetailDTO response = bookmarkCommandService.bookmarkJob(userId, request.getJobId(), request.getPage());
+        return ApiResponse.onSuccess(response);
     }
 
     @GetMapping("")
     public ApiResponse<List<BookmarkResponseDTO.BookmarkListDTO>> getBookmarkList() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
-        return ApiResponse.onSuccess(bookmarkQueryService.getBookmarkList(userId));
+
+        List<BookmarkResponseDTO.BookmarkListDTO> response = bookmarkQueryService.getBookmarkList(userId);
+        return ApiResponse.onSuccess(response);
     }
 
     @DeleteMapping("{bookmarkId}")
@@ -44,7 +46,7 @@ public class BookmarkController implements BookmarkSpecification {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        BookmarkResponseDTO.DeleteBookmarkDTO response = bookmarkCommandService.delete(bookmarkId, userId);
-        return ApiResponse.onSuccess(response);
+        BookmarkResponseDTO.DeleteBookmarkDTO deleteBookmark = bookmarkCommandService.delete(bookmarkId, userId);
+        return ApiResponse.onSuccess(deleteBookmark);
     }
 }
