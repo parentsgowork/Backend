@@ -39,4 +39,11 @@ public class BookmarkConverter {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    public static BookmarkResponseDTO.DeleteBookmarkDTO toDeletedBookmark(Bookmark bookmark) {
+        return BookmarkResponseDTO.DeleteBookmarkDTO.builder()
+                .id(bookmark.getId())
+                .message("북마크를 삭제했습니다.")
+                .build();
+    }
 }

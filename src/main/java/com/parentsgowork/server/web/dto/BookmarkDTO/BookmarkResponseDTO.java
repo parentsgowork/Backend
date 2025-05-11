@@ -23,4 +23,13 @@ public class BookmarkResponseDTO {
         private String registrationDate;
     }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeleteBookmarkDTO {
+        private Long id;
+        private String message; // ex) 북마크 삭제가 완료되었습니다.
+    }
+
 }
