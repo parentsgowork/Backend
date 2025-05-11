@@ -6,6 +6,7 @@ import com.parentsgowork.server.web.controller.specification.CrawlingSpecificati
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,8 @@ public class CrawlingController implements CrawlingSpecification {
     @Override
     @GetMapping("/senior-jobs")
     public ApiResponse<List<JobCrawlingDTO.JobInfoDTO>> jobCrawler(@RequestParam(defaultValue = "1") int page) {
-        return ApiResponse.onSuccess(crawlingService.getSeniorJobs(page));
+
+        List<JobCrawlingDTO.JobInfoDTO> response = crawlingService.getSeniorJobs(page);
+        return ApiResponse.onSuccess(response);
     }
 }
