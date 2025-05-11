@@ -11,10 +11,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CrawlingServiceImpl implements CrawlingService {
 
-    private final JobInfoCrawling jobPageCrawler;
+    private final JobInfoCrawling jobPageCrawling;
 
     @Override
     public List<JobCrawlingDTO.JobInfoDTO> getSeniorJobs(int page) {
-        return jobPageCrawler.crawlJobs(page);
+        List<JobCrawlingDTO.JobInfoDTO> jobs = jobPageCrawling.crawlJobs(page);
+
+        long startId = (long) (page - 1) * jobs.size() + 1;
+
+        for (int i = 0; i < jobs.size(); i++) {
+            jobs.get(i).setId(startId + i);
+        }
+
+        return jobs;
     }
+
 }

@@ -11,8 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class UserBookmark extends BaseEntity {
-
+public class Bookmark extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +21,25 @@ public class UserBookmark extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    //@Enumerated(EnumType.STRING) ??
-    @Column(nullable = false, length = 20)
-    private String jobName;
+    @Column(nullable = false)
+    private String companyName;
+
+    @Column(nullable = false)
+    private String jobTitle;
+
+    @Column(nullable = false)
+    private String pay;
+
+    @Column(nullable = false)
+    private String time;
+
+    @Column(nullable = false)
+    private String location;
+
+    @Column(nullable = false)
+    private String deadline;
+
+    @Column(nullable = false)
+    private String registrationDate;
+
 }

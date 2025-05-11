@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EducationInfo extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

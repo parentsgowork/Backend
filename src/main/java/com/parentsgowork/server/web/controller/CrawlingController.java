@@ -18,7 +18,7 @@ public class CrawlingController implements CrawlingSpecification {
 
     private final CrawlingService crawlingService;
 
-    //@Override
+    @Override
     @GetMapping("/senior-jobs")
     public ApiResponse<List<JobCrawlingDTO.JobInfoDTO>> jobCrawler(@RequestParam(defaultValue = "1") int page) {
         return ApiResponse.onSuccess(crawlingService.getSeniorJobs(page));
