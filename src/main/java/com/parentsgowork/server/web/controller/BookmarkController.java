@@ -41,6 +41,15 @@ public class BookmarkController implements BookmarkSpecification {
         return ApiResponse.onSuccess(response);
     }
 
+    @GetMapping("{bookmarkId}")
+    public ApiResponse<BookmarkRequestDTO.BookmarkDetailDTO> getBookmarkDetails(@PathVariable Long bookmarkId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long userId = (Long) authentication.getPrincipal();
+
+        BookmarkRequestDTO.BookmarkDetailDTO response = bookmarkQueryService.getBookmarkDetails(userId, bookmarkId);
+        return ApiResponse.onSuccess(response);
+    }
+
     @DeleteMapping("{bookmarkId}")
     public ApiResponse<BookmarkResponseDTO.DeleteBookmarkDTO> deleteBookmark(@PathVariable("bookmarkId") Long bookmarkId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -5,6 +5,7 @@ import com.parentsgowork.server.apiPayload.exception.BookmarkHandler;
 import com.parentsgowork.server.converter.BookmarkConverter;
 import com.parentsgowork.server.domain.Bookmark;
 import com.parentsgowork.server.repository.BookmarkRepository;
+import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkRequestDTO;
 import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,14 @@ public class BookmarkQueryServiceImpl implements BookmarkQueryService {
         List<Bookmark> bookmarks = bookmarkRepository.findBookmarkList(userId);
 
         return BookmarkConverter.getBookmarkListDTO(bookmarks);
+    }
+
+    @Override
+    public BookmarkRequestDTO.BookmarkDetailDTO getBookmarkDetails(Long userId, Long bookmarkId) {
+
+        Bookmark bookmark = bookmarkRepository.findByIdAndUserId(bookmarkId, userId)
+                .orElseThrow(() -> new BookmarkHandler(ErrorStatus.BOOKMARK_NOT_FOUND));
+
+        return BookmarkConverter.toDetailDTO(bookmark);
     }
 }
