@@ -5,21 +5,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-public class BookmarkRequestDTO {
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class jobInfoBookmarkDTO {
-        private Long jobId;
-        private Integer page;
-    }
+public class BookmarkResponseDTO {
 
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BookmarkDetailDTO {
+    public static class BookmarkListDTO {
         private Long id;
         private Long jobId;
         private String companyName;

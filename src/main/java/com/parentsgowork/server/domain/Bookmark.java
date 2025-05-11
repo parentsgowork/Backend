@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Bookmark extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,25 +22,28 @@ public class Bookmark extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @Column(nullable = false)
+    @Column
+    private Long jobId;
+
+    @Column
     private String companyName;
 
-    @Column(nullable = false)
+    @Column
     private String jobTitle;
 
-    @Column(nullable = false)
+    @Column
     private String pay;
 
-    @Column(nullable = false)
+    @Column
     private String time;
 
-    @Column(nullable = false)
+    @Column
     private String location;
 
-    @Column(nullable = false)
+    @Column
     private String deadline;
 
-    @Column(nullable = false)
+    @Column
     private String registrationDate;
 
 }

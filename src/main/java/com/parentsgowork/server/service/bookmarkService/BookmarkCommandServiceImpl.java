@@ -2,9 +2,14 @@ package com.parentsgowork.server.service.bookmarkService;
 
 import com.parentsgowork.server.apiPayload.code.status.ErrorStatus;
 import com.parentsgowork.server.apiPayload.exception.BookmarkHandler;
+import com.parentsgowork.server.apiPayload.exception.UserHandler;
+import com.parentsgowork.server.converter.BookmarkConverter;
 import com.parentsgowork.server.domain.Bookmark;
+import com.parentsgowork.server.domain.User;
 import com.parentsgowork.server.repository.BookmarkRepository;
+import com.parentsgowork.server.repository.UserRepository;
 import com.parentsgowork.server.service.crawlingService.CrawlingService;
+import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkRequestDTO;
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO.JobInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,13 +18,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BookmarkServiceImpl implements BookmarkService {
+public class BookmarkCommandServiceImpl implements BookmarkCommandService {
 
     private final BookmarkRepository bookmarkRepository;
-    private final CrawlingService crawlingService; // 크롤링 서비스 의존성 주입
+    private final CrawlingService crawlingService;
+    private final UserRepository userRepository;
 
     @Override
-    public Bookmark bookmarkJob(Long jobId, int page) {
+    public BookmarkRequestDTO.BookmarkDetailDTO bookmarkJob(Long userId, Long jobId, int page) {
 
         // 해당 페이지의 크롤링 결과 불러오기
         List<JobInfoDTO> crawledJobs = crawlingService.getSeniorJobs(page);
@@ -30,8 +36,12 @@ public class BookmarkServiceImpl implements BookmarkService {
                 .findFirst()
                 .orElseThrow(() -> new BookmarkHandler(ErrorStatus.CRAWLING_NO_RESULTS));
 
-        // Bookmark 엔티티로 변환 후 저장
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
+
         Bookmark bookmark = Bookmark.builder()
+                .user(user)
+                .jobId(jobId)
                 .companyName(job.getCompanyName())
                 .jobTitle(job.getJobTitle())
                 .pay(job.getPay())
@@ -41,6 +51,7 @@ public class BookmarkServiceImpl implements BookmarkService {
                 .registrationDate(job.getRegistrationDate())
                 .build();
 
-        return bookmarkRepository.save(bookmark);
+        Bookmark savedBookmark = bookmarkRepository.save(bookmark);
+        return BookmarkConverter.toDetailDTO(savedBookmark);
     }
 }
