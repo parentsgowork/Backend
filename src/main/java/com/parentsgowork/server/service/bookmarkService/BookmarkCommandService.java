@@ -1,7 +1,7 @@
 package com.parentsgowork.server.service.bookmarkService;
 
-import com.parentsgowork.server.domain.Bookmark;
+import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkRequestDTO;
 
-public interface BookmarkService {
-    Bookmark bookmarkJob(Long jobId, int page);
+public interface BookmarkCommandService {
+    BookmarkRequestDTO.BookmarkDetailDTO bookmarkJob(Long userId, Long jobId, int page);
 }
