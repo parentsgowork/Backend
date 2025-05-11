@@ -10,6 +10,7 @@ import com.parentsgowork.server.repository.BookmarkRepository;
 import com.parentsgowork.server.repository.UserRepository;
 import com.parentsgowork.server.service.crawlingService.CrawlingService;
 import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkRequestDTO;
+import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkResponseDTO;
 import com.parentsgowork.server.web.dto.JobCrawlingDTO.JobCrawlingDTO.JobInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,5 +54,19 @@ public class BookmarkCommandServiceImpl implements BookmarkCommandService {
 
         Bookmark savedBookmark = bookmarkRepository.save(bookmark);
         return BookmarkConverter.toDetailDTO(savedBookmark);
+    }
+
+    @Override
+    public BookmarkResponseDTO.DeleteBookmarkDTO delete(Long userId, Long bookmarkId) {
+
+        userRepository.findById(userId)
+                .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
+
+        Bookmark bookmark = bookmarkRepository.findByIdAndUserId(bookmarkId, userId)
+                        .orElseThrow(() -> new BookmarkHandler(ErrorStatus.BOOKMARK_NOT_FOUND));
+
+        bookmarkRepository.deleteById(bookmarkId);
+
+        return BookmarkConverter.toDeletedBookmark(bookmark);
     }
 }

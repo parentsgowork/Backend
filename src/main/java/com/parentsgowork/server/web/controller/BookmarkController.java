@@ -24,7 +24,7 @@ public class BookmarkController implements BookmarkSpecification {
     private final BookmarkCommandService bookmarkCommandService;
     private final BookmarkQueryService bookmarkQueryService;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ApiResponse<BookmarkRequestDTO.BookmarkDetailDTO> bookmarkJob(@RequestBody BookmarkRequestDTO.jobInfoBookmarkDTO request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
@@ -32,10 +32,19 @@ public class BookmarkController implements BookmarkSpecification {
         return ApiResponse.onSuccess(bookmarkCommandService.bookmarkJob(userId, request.getJobId(), request.getPage()));
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ApiResponse<List<BookmarkResponseDTO.BookmarkListDTO>> getBookmarkList() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
         return ApiResponse.onSuccess(bookmarkQueryService.getBookmarkList(userId));
+    }
+
+    @DeleteMapping("{bookmarkId}")
+    public ApiResponse<BookmarkResponseDTO.DeleteBookmarkDTO> deleteBookmark(@PathVariable("bookmarkId") Long bookmarkId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long userId = (Long) authentication.getPrincipal();
+
+        BookmarkResponseDTO.DeleteBookmarkDTO response = bookmarkCommandService.delete(bookmarkId, userId);
+        return ApiResponse.onSuccess(response);
     }
 }
