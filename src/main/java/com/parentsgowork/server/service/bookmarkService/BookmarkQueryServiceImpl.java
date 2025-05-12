@@ -27,7 +27,7 @@ public class BookmarkQueryServiceImpl implements BookmarkQueryService {
     }
 
     @Override
-    public BookmarkRequestDTO.BookmarkDetailDTO getBookmarkDetails(Long userId, Long bookmarkId) {
+    public BookmarkResponseDTO.BookmarkDetailInfoDTO getBookmarkDetails(Long userId, Long bookmarkId) {
 
         Bookmark bookmark = bookmarkRepository.findByIdAndUserId(bookmarkId, userId)
                 .orElseThrow(() -> new BookmarkHandler(ErrorStatus.BOOKMARK_NOT_FOUND));

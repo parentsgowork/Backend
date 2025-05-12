@@ -8,5 +8,5 @@ import java.util.List;
 public interface BookmarkQueryService {
     List<BookmarkResponseDTO.BookmarkListDTO> getBookmarkList(Long userId);
 
-    BookmarkRequestDTO.BookmarkDetailDTO getBookmarkDetails(Long userId, Long bookmarkId);
+    BookmarkResponseDTO.BookmarkDetailInfoDTO getBookmarkDetails(Long userId, Long bookmarkId);
 }

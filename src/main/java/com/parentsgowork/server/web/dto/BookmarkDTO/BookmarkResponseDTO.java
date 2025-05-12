@@ -21,6 +21,23 @@ public class BookmarkResponseDTO {
         private String location;
         private String deadline;
         private String registrationDate;
+        private String detailUrl;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BookmarkDetailInfoDTO {
+        private Long id;
+        private String jobTitle;
+        private String companyName;
+        private String pay;
+        private String time;
+        private String location;
+        private String deadline;
+        private String registrationDate;
+        private String detailUrl;
     }
 
     @Getter
