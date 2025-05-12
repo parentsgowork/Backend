@@ -9,11 +9,24 @@ import java.util.stream.Collectors;
 
 public class BookmarkConverter {
 
-    public static BookmarkRequestDTO.BookmarkDetailDTO toDetailDTO(Bookmark bookmark) {
-        return BookmarkRequestDTO.BookmarkDetailDTO.builder()
+    public static BookmarkRequestDTO.SaveBookmarkDTO toSaveBookmarkDTO(Bookmark bookmark) {
+        return BookmarkRequestDTO.SaveBookmarkDTO.builder()
                 .id(bookmark.getId())
                 .jobId(bookmark.getJobId())
                 .companyName(bookmark.getCompanyName())
+                .jobTitle(bookmark.getJobTitle())
+                .pay(bookmark.getPay())
+                .time(bookmark.getTime())
+                .location(bookmark.getLocation())
+                .deadline(bookmark.getDeadline())
+                .registrationDate(bookmark.getRegistrationDate())
+                .build();
+    }
+
+    public static BookmarkResponseDTO.BookmarkDetailInfoDTO toDetailDTO(Bookmark bookmark) {
+        return BookmarkResponseDTO.BookmarkDetailInfoDTO.builder()
+                .id(bookmark.getId())
+                .jobId(bookmark.getJobId())
                 .jobTitle(bookmark.getJobTitle())
                 .pay(bookmark.getPay())
                 .time(bookmark.getTime())

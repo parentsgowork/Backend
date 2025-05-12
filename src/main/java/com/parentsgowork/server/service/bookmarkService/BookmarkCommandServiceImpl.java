@@ -26,7 +26,7 @@ public class BookmarkCommandServiceImpl implements BookmarkCommandService {
     private final UserRepository userRepository;
 
     @Override
-    public BookmarkRequestDTO.BookmarkDetailDTO bookmarkJob(Long userId, Long jobId, int page) {
+    public BookmarkRequestDTO.SaveBookmarkDTO bookmarkJob(Long userId, Long jobId, int page) {
 
         // 해당 페이지의 크롤링 결과 불러오기
         List<JobInfoDTO> crawledJobs = crawlingService.getSeniorJobs(page);
@@ -53,7 +53,7 @@ public class BookmarkCommandServiceImpl implements BookmarkCommandService {
                 .build();
 
         Bookmark savedBookmark = bookmarkRepository.save(bookmark);
-        return BookmarkConverter.toDetailDTO(savedBookmark);
+        return BookmarkConverter.toSaveBookmarkDTO(savedBookmark);
     }
 
     @Override

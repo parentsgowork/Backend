@@ -19,7 +19,7 @@ public class BookmarkRequestDTO {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BookmarkDetailDTO {
+    public static class SaveBookmarkDTO {
         private Long id;
         private Long jobId;
         private String companyName;

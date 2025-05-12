@@ -24,11 +24,11 @@ public class BookmarkController implements BookmarkSpecification {
     private final BookmarkQueryService bookmarkQueryService;
 
     @PostMapping("")
-    public ApiResponse<BookmarkRequestDTO.BookmarkDetailDTO> bookmarkJob(@RequestBody BookmarkRequestDTO.jobInfoBookmarkDTO request) {
+    public ApiResponse<BookmarkRequestDTO.SaveBookmarkDTO> bookmarkJob(@RequestBody BookmarkRequestDTO.jobInfoBookmarkDTO request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        BookmarkRequestDTO.BookmarkDetailDTO response = bookmarkCommandService.bookmarkJob(userId, request.getJobId(), request.getPage());
+        BookmarkRequestDTO.SaveBookmarkDTO response = bookmarkCommandService.bookmarkJob(userId, request.getJobId(), request.getPage());
         return ApiResponse.onSuccess(response);
     }
 
@@ -42,11 +42,11 @@ public class BookmarkController implements BookmarkSpecification {
     }
 
     @GetMapping("{bookmarkId}")
-    public ApiResponse<BookmarkRequestDTO.BookmarkDetailDTO> getBookmarkDetails(@PathVariable Long bookmarkId) {
+    public ApiResponse<BookmarkResponseDTO.BookmarkDetailInfoDTO> getBookmarkDetails(@PathVariable Long bookmarkId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        BookmarkRequestDTO.BookmarkDetailDTO response = bookmarkQueryService.getBookmarkDetails(userId, bookmarkId);
+        BookmarkResponseDTO.BookmarkDetailInfoDTO response = bookmarkQueryService.getBookmarkDetails(userId, bookmarkId);
         return ApiResponse.onSuccess(response);
     }
 
