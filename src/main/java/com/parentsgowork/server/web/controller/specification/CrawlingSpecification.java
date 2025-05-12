@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface CrawlingSpecification {
 
-    @GetMapping("/senior-jobs")
+    @GetMapping("/seniorJobs")
     @Operation(summary = "채용정보 크롤링", description = "우대 조건이 50세 이상인 채용 정보를 조회합니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
