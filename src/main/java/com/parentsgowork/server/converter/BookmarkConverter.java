@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 public class BookmarkConverter {
 
-    public static BookmarkRequestDTO.BookmarkDetailDTO toDetailDTO(Bookmark bookmark) {
-        return BookmarkRequestDTO.BookmarkDetailDTO.builder()
+    public static BookmarkRequestDTO.SaveBookmarkDTO toSaveBookmarkDTO(Bookmark bookmark) {
+        return BookmarkRequestDTO.SaveBookmarkDTO.builder()
                 .id(bookmark.getId())
                 .jobId(bookmark.getJobId())
                 .companyName(bookmark.getCompanyName())
@@ -20,6 +20,21 @@ public class BookmarkConverter {
                 .location(bookmark.getLocation())
                 .deadline(bookmark.getDeadline())
                 .registrationDate(bookmark.getRegistrationDate())
+                .detailUrl(bookmark.getDetailUrl())
+                .build();
+    }
+
+    public static BookmarkResponseDTO.BookmarkDetailInfoDTO toDetailDTO(Bookmark bookmark) {
+        return BookmarkResponseDTO.BookmarkDetailInfoDTO.builder()
+                .id(bookmark.getId())
+                .jobTitle(bookmark.getJobTitle())
+                .companyName(bookmark.getCompanyName())
+                .pay(bookmark.getPay())
+                .time(bookmark.getTime())
+                .location(bookmark.getLocation())
+                .deadline(bookmark.getDeadline())
+                .registrationDate(bookmark.getRegistrationDate())
+                .detailUrl(bookmark.getDetailUrl())
                 .build();
     }
 
@@ -36,6 +51,7 @@ public class BookmarkConverter {
                         .location(bookmark.getLocation())
                         .deadline(bookmark.getDeadline())
                         .registrationDate(bookmark.getRegistrationDate())
+                        .detailUrl(bookmark.getDetailUrl())
                         .build())
                 .collect(Collectors.toList());
     }

@@ -20,7 +20,7 @@ public interface BookmarkSpecification {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
-    ApiResponse<BookmarkRequestDTO.BookmarkDetailDTO> bookmarkJob(@RequestBody BookmarkRequestDTO.jobInfoBookmarkDTO request);
+    ApiResponse<BookmarkRequestDTO.SaveBookmarkDTO> bookmarkJob(@RequestBody BookmarkRequestDTO.jobInfoBookmarkDTO request);
 
     @GetMapping("/")
     @Operation(summary = "내가 저장한 북마크 리스트 조회", description = "내가 저장한 북마크 리스트를 조회합니다.")
@@ -36,7 +36,7 @@ public interface BookmarkSpecification {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
-    ApiResponse<BookmarkRequestDTO.BookmarkDetailDTO> getBookmarkDetails(@PathVariable Long bookmarkId);
+    ApiResponse<BookmarkResponseDTO.BookmarkDetailInfoDTO> getBookmarkDetails(@PathVariable Long bookmarkId);
 
     @DeleteMapping("{bookmarkId}")
     @Operation(summary = "내가 저장한 북마크 삭제", description = "내가 저장한 북마크 리스트를 삭제합니다.")
