@@ -27,6 +27,20 @@ public class BookmarkResponseDTO {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class BookmarkDetailInfoDTO {
+        private Long id;
+        private Long jobId;
+        private String jobTitle;
+        private String pay;
+        private String time;
+        private String location;
+
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class DeleteBookmarkDTO {
         private Long id;
         private String message; // ex) 북마크 삭제가 완료되었습니다.
