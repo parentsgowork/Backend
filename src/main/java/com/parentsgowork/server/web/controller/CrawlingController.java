@@ -14,7 +14,7 @@ import java.util.List;
 @Tag(name = "Crawler", description = "크롤링 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/crawler")
+@RequestMapping("/api/crawler")
 public class CrawlingController implements CrawlingSpecification {
 
     private final CrawlingService crawlingService;
