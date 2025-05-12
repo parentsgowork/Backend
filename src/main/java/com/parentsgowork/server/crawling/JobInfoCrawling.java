@@ -40,8 +40,10 @@ public class JobInfoCrawling {
             List<WebElement> jobCards = driver.findElements(By.cssSelector("tr[id^='list']"));
 
             for (WebElement card : jobCards) {
+                WebElement titleElement = card.findElement(By.cssSelector("a.t3_sb"));
+                String title = titleElement.getText();
+                String detailUrl = titleElement.getAttribute("href");
                 String company = card.findElement(By.cssSelector("a.cp_name")).getText();
-                String title = card.findElement(By.cssSelector("a.t3_sb")).getText();
                 String pay = card.findElement(By.cssSelector("li.dollar span.item")).getText();
                 String time = card.findElement(By.cssSelector("li.time span.item.sm:nth-of-type(1)")).getText();
                 String location = card.findElement(By.cssSelector("li.site p")).getText();
@@ -54,8 +56,6 @@ public class JobInfoCrawling {
                     registrationDate = dateElements.get(1).getText();
                 }
 
-                System.out.println(company + " / " + title + " / " + pay + " / " + time + " / " + location + " / " + deadline + " / " + registrationDate);
-
                 jobs.add(
                         JobCrawlingDTO.JobInfoDTO.builder()
                                 .companyName(company)
@@ -65,6 +65,7 @@ public class JobInfoCrawling {
                                 .location(location)
                                 .deadline(deadline)
                                 .registrationDate(registrationDate)
+                                .detailUrl(detailUrl)
                                 .build()
                 );
             }

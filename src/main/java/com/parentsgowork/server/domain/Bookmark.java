@@ -46,4 +46,7 @@ public class Bookmark extends BaseEntity {
     @Column
     private String registrationDate;
 
+    @Column(columnDefinition = "TEXT")
+    private String detailUrl;
+
 }

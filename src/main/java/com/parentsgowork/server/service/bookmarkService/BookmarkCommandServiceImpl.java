@@ -50,6 +50,7 @@ public class BookmarkCommandServiceImpl implements BookmarkCommandService {
                 .location(job.getLocation())
                 .deadline(job.getDeadline())
                 .registrationDate(job.getRegistrationDate())
+                .detailUrl(job.getDetailUrl())
                 .build();
 
         Bookmark savedBookmark = bookmarkRepository.save(bookmark);

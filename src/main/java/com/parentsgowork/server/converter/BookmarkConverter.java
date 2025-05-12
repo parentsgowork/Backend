@@ -20,6 +20,7 @@ public class BookmarkConverter {
                 .location(bookmark.getLocation())
                 .deadline(bookmark.getDeadline())
                 .registrationDate(bookmark.getRegistrationDate())
+                .detailUrl(bookmark.getDetailUrl())
                 .build();
     }
 
@@ -33,6 +34,7 @@ public class BookmarkConverter {
                 .location(bookmark.getLocation())
                 .deadline(bookmark.getDeadline())
                 .registrationDate(bookmark.getRegistrationDate())
+                .detailUrl(bookmark.getDetailUrl())
                 .build();
     }
 
@@ -49,6 +51,7 @@ public class BookmarkConverter {
                         .location(bookmark.getLocation())
                         .deadline(bookmark.getDeadline())
                         .registrationDate(bookmark.getRegistrationDate())
+                        .detailUrl(bookmark.getDetailUrl())
                         .build())
                 .collect(Collectors.toList());
     }

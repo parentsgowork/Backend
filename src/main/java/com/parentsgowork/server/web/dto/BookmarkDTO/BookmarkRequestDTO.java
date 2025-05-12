@@ -29,6 +29,7 @@ public class BookmarkRequestDTO {
         private String location;
         private String deadline;
         private String registrationDate;
+        private String detailUrl;
     }
 
 }

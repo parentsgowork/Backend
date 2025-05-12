@@ -21,6 +21,7 @@ public class BookmarkResponseDTO {
         private String location;
         private String deadline;
         private String registrationDate;
+        private String detailUrl;
     }
 
     @Getter
@@ -36,7 +37,7 @@ public class BookmarkResponseDTO {
         private String location;
         private String deadline;
         private String registrationDate;
-
+        private String detailUrl;
     }
 
     @Getter
