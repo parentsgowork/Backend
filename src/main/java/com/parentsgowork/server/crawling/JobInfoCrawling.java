@@ -39,8 +39,6 @@ public class JobInfoCrawling {
 
             List<WebElement> jobCards = driver.findElements(By.cssSelector("tr[id^='list']"));
 
-            long idCounter = 1;
-
             for (WebElement card : jobCards) {
                 String company = card.findElement(By.cssSelector("a.cp_name")).getText();
                 String title = card.findElement(By.cssSelector("a.t3_sb")).getText();
