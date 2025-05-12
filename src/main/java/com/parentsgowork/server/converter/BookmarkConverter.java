@@ -26,8 +26,8 @@ public class BookmarkConverter {
     public static BookmarkResponseDTO.BookmarkDetailInfoDTO toDetailDTO(Bookmark bookmark) {
         return BookmarkResponseDTO.BookmarkDetailInfoDTO.builder()
                 .id(bookmark.getId())
-                .jobId(bookmark.getJobId())
                 .jobTitle(bookmark.getJobTitle())
+                .companyName(bookmark.getCompanyName())
                 .pay(bookmark.getPay())
                 .time(bookmark.getTime())
                 .location(bookmark.getLocation())

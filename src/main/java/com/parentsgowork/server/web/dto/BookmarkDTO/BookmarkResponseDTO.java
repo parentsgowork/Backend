@@ -29,8 +29,8 @@ public class BookmarkResponseDTO {
     @AllArgsConstructor
     public static class BookmarkDetailInfoDTO {
         private Long id;
-        private Long jobId;
         private String jobTitle;
+        private String companyName;
         private String pay;
         private String time;
         private String location;
