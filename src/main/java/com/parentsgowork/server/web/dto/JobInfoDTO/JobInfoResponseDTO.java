@@ -33,8 +33,35 @@ public class JobInfoResponseDTO {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SaveJobResultDTO {
+    public static class JobInfoResultDTO {
         private String title;
         private String content;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AddJobResultDTO {
+        private String title;
+        private String content;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class JobInfoDetailDTO {
+        private String title;
+        private String content;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeleteJobInfoDTO {
+        private Long id;
+        private String message;
     }
 }

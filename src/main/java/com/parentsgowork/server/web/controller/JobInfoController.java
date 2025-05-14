@@ -1,15 +1,18 @@
 package com.parentsgowork.server.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.parentsgowork.server.apiPayload.ApiResponse;
+import com.parentsgowork.server.service.jobInfoService.JobInfoCommandService;
+import com.parentsgowork.server.web.controller.specification.JobInfoSpecification;
+import com.parentsgowork.server.web.dto.JobInfoDTO.JobInfoRequestDTO;
 import com.parentsgowork.server.web.dto.JobInfoDTO.JobInfoResponseDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -19,7 +22,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/jobInfo")
-public class JobInfoController {
+public class JobInfoController implements JobInfoSpecification {
 
     @Value("${seoul.openapi.key}")
     private String apiKey;
@@ -27,8 +30,10 @@ public class JobInfoController {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @GetMapping("")
-    public ResponseEntity<List<JobInfoResponseDTO.SaveJobResultDTO>> getParsedJobInfo() {
+    private final JobInfoCommandService jobInfoCommandService;
+
+    @GetMapping("/search")
+    public ResponseEntity<List<JobInfoResponseDTO.JobInfoResultDTO>> getParsedJobInfo() {
         int start = 1;
         int end = 3;
         String url = String.format(
@@ -41,9 +46,9 @@ public class JobInfoController {
         try {
             JobInfoResponseDTO response = objectMapper.readValue(rawJson, JobInfoResponseDTO.class);
 
-            List<JobInfoResponseDTO.SaveJobResultDTO> resultList =
+            List<JobInfoResponseDTO.JobInfoResultDTO> resultList =
                     response.getJobInfo().getRow().stream()
-                            .map(row -> JobInfoResponseDTO.SaveJobResultDTO.builder()
+                            .map(row -> JobInfoResponseDTO.JobInfoResultDTO.builder()
                                     .title(row.getTitle())
                                     .content(row.getContent())
                                     .build())
@@ -55,6 +60,16 @@ public class JobInfoController {
         } catch (Exception e) {
             return ResponseEntity.status(500).build();
         }
+    }
+
+    @PostMapping("/add")
+    public ApiResponse<List<JobInfoResponseDTO.AddJobResultDTO>> addJobInfo(@RequestBody List<JobInfoRequestDTO.SaveJobInfoDTO> saveJobInfoDTOList) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long userId = (Long) authentication.getPrincipal();
+
+        List<JobInfoResponseDTO.AddJobResultDTO> response = jobInfoCommandService.addJobInfo(userId, saveJobInfoDTOList);
+        return ApiResponse.onSuccess(response);
     }
 
 

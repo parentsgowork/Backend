@@ -14,6 +14,5 @@ public class JobInfoRequestDTO {
     public static class SaveJobInfoDTO {
         private String title;
         private String content;
-        private String url;
     }
 }
