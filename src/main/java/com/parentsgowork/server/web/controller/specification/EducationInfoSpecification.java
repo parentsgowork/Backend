@@ -30,12 +30,12 @@ public interface BookmarkSpecification {
     })
     ApiResponse<BookmarkResponseDTO.EducationInfoDetailDTO> getEducationInfoDetails(@PathVariable Long educationInfoId);
 
-    @DeleteMapping("{bookmarkId}")
-    @Operation(summary = "내가 저장한 북마크 삭제", description = "내가 저장한 북마크 리스트를 삭제합니다.")
+    @DeleteMapping("/educationInfo/{educationInfoId}")
+    @Operation(summary = "내가 저장한 교육정보 삭제", description = "내가 저장한 교육정보 리스트 중 특정 교육정보를 삭제합니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
-    ApiResponse<BookmarkResponseDTO.DeleteBookmarkDTO> deleteBookmark(@PathVariable("bookmarkId") Long bookmarkId);
+    ApiResponse<BookmarkResponseDTO.DeleteBookmarkDTO> deleteBookmark(@PathVariable("educationInfoId") Long educationInfoId);
 
 }

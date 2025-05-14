@@ -40,12 +40,12 @@ public class BookmarkController implements BookmarkSpecification {
         return ApiResponse.onSuccess(response);
     }
 
-    @DeleteMapping("{bookmarkId}")
-    public ApiResponse<BookmarkResponseDTO.DeleteBookmarkDTO> deleteBookmark(@PathVariable("bookmarkId") Long bookmarkId) {
+    @DeleteMapping("/educationInfo/{educationInfoId}")
+    public ApiResponse<BookmarkResponseDTO.DeleteBookmarkDTO> deleteBookmark(@PathVariable("educationInfoId") Long educationInfoId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        BookmarkResponseDTO.DeleteBookmarkDTO deleteBookmark = bookmarkCommandService.delete(bookmarkId, userId);
+        BookmarkResponseDTO.DeleteBookmarkDTO deleteBookmark = bookmarkCommandService.delete(educationInfoId, userId);
         return ApiResponse.onSuccess(deleteBookmark);
     }
 }
