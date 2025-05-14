@@ -44,4 +44,18 @@ public class JobInfoCommandServiceImpl implements JobInfoCommandService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public JobInfoResponseDTO.DeleteJobInfoDTO delete(Long userId, Long jobInfoId) {
+
+        userRepository.findById(userId)
+                .orElseThrow(() -> new JobInfoHandler(ErrorStatus.USER_NOT_FOUND));
+
+        JobInfo jobInfo = jobInfoRepository.findByIdAndUserId(jobInfoId, userId)
+                .orElseThrow(() -> new JobInfoHandler(ErrorStatus.JOB_INFO_NOT_FOUND));
+
+        jobInfoRepository.deleteById(jobInfoId);
+
+        return JobInfoConverter.DeleteJobInfoDTO(jobInfo);
+    }
+
 }

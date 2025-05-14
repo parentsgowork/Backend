@@ -8,4 +8,7 @@ import java.util.List;
 public interface JobInfoCommandService {
 
     List<JobInfoResponseDTO.AddJobResultDTO> addJobInfo(Long userId, List<JobInfoRequestDTO.SaveJobInfoDTO> saveJobInfoDTOList);
+
+    JobInfoResponseDTO.DeleteJobInfoDTO delete(Long userId, Long jobInfoId);
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JobInfoRepository extends JpaRepository<JobInfo, Long> {
-    @Query("SELECT ji FROM EducationInfo ji " +
+    @Query("SELECT ji FROM JobInfo ji " +
             "WHERE ji. user.id = :userId")
     List<JobInfo> findJobInfoList(@Param("userId") Long userId);
 

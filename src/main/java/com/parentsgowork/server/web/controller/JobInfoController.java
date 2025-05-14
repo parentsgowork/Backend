@@ -3,6 +3,7 @@ package com.parentsgowork.server.web.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.parentsgowork.server.apiPayload.ApiResponse;
 import com.parentsgowork.server.service.jobInfoService.JobInfoCommandService;
+import com.parentsgowork.server.service.jobInfoService.JobInfoQueryService;
 import com.parentsgowork.server.web.controller.specification.JobInfoSpecification;
 import com.parentsgowork.server.web.dto.JobInfoDTO.JobInfoRequestDTO;
 import com.parentsgowork.server.web.dto.JobInfoDTO.JobInfoResponseDTO;
@@ -31,6 +32,7 @@ public class JobInfoController implements JobInfoSpecification {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     private final JobInfoCommandService jobInfoCommandService;
+    private final JobInfoQueryService jobInfoQueryService;
 
     @GetMapping("/search")
     public ResponseEntity<List<JobInfoResponseDTO.JobInfoResultDTO>> getParsedJobInfo() {
@@ -72,5 +74,31 @@ public class JobInfoController implements JobInfoSpecification {
         return ApiResponse.onSuccess(response);
     }
 
+    @GetMapping("")
+    public ApiResponse<List<JobInfoResponseDTO.JobInfoResultDTO>> getJobInfoList() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long userId = (Long) authentication.getPrincipal();
+
+        List<JobInfoResponseDTO.JobInfoResultDTO> response = jobInfoQueryService.getJobInfoList(userId);
+        return ApiResponse.onSuccess(response);
+    }
+
+    @GetMapping("/{jobInfoId}")
+    public ApiResponse<JobInfoResponseDTO.JobInfoDetailDTO> getJobInfoDetails(@PathVariable Long jobInfoId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long userId = (Long) authentication.getPrincipal();
+
+        JobInfoResponseDTO.JobInfoDetailDTO response = jobInfoQueryService.getJobInfoDetails(userId, jobInfoId);
+        return ApiResponse.onSuccess(response);
+    }
+
+    @DeleteMapping("/{jobInfoId}")
+    public ApiResponse<JobInfoResponseDTO.DeleteJobInfoDTO> deleteJobInfo(@PathVariable("jobInfoId") Long jobInfoId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long userId = (Long) authentication.getPrincipal();
+
+        JobInfoResponseDTO.DeleteJobInfoDTO response = jobInfoCommandService.delete(jobInfoId, userId);
+        return ApiResponse.onSuccess(response);
+    }
 
 }
