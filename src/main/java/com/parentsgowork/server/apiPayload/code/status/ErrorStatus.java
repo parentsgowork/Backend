@@ -17,7 +17,7 @@ public enum ErrorStatus implements BaseErrorCode {
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
     //멤버 관련 에러
-    USER_NOT_FOUND(HttpStatus.UNAUTHORIZED, "USER4001", "이메일 또는 패스워드가 일치하지 않습니다."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER4001", "회원을 찾을 수 없습니다."),
     EMAIL_ALREADY_EXISTS(HttpStatus.CONFLICT, "USER4002", "이미 존재하는 이메일입니다."),
     USER_STATUS_INACTIVE(HttpStatus.FORBIDDEN, "USER4003", "탈퇴한 회원입니다."),
 
@@ -45,18 +45,10 @@ public enum ErrorStatus implements BaseErrorCode {
     EMAIL_SEND_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH5001", "이메일 전송에 실패했습니다."),
     EMAIL_ENCODING_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH5002", "이메일 내용 인코딩에 실패했습니다."),
 
-    // 크롤링 관련 에러
-    CRAWLING_DRIVER_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, "CRAWLING4001", "크롬 드라이버 경로가 설정되지 않았습니다."),
-    CRAWLING_PAGE_LOAD_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"CRAWLING4002", "페이지 로딩 중 오류가 발생했습니다."),
-    CRAWLING_ELEMENT_NOT_FOUND(HttpStatus.NOT_FOUND,"CRAWLING4003", "요소를 찾을 수 없습니다."),
-    CRAWLING_TIMEOUT(HttpStatus.INTERNAL_SERVER_ERROR,"CRAWLING4004", "페이지 로딩 시간이 초과되었습니다."),
-    CRAWLING_SESSION_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"CRAWLING4005", "크롬 드라이버 세션을 시작할 수 없습니다."),
-    CRAWLING_INVALID_SELECTOR(HttpStatus.BAD_REQUEST,"CRAWLING4006", "유효하지 않은 셀렉터입니다."),
-    CRAWLING_NO_RESULTS(HttpStatus.NOT_FOUND,"CRAWLING4007", "크롤링 결과가 존재하지 않습니다."),
-    CRAWLING_UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"CRAWLING4008", "알 수 없는 크롤링 오류가 발생했습니다."),
-
     // 북마크 관련 에러
-    BOOKMARK_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4001", "북마크가 존재하지 않습니다.");
+    EDUCATION_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4001", "북마크한 교육정보가 존재하지 않습니다."),
+    POLICY_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4002", "북마크한 정책정보가 존재하지 않습니다.");
+
 
 
 

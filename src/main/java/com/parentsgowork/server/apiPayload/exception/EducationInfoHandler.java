@@ -2,9 +2,8 @@ package com.parentsgowork.server.apiPayload.exception;
 
 import com.parentsgowork.server.apiPayload.code.BaseErrorCode;
 
-public class BookmarkHandler extends GeneralException {
-    public BookmarkHandler(BaseErrorCode code) {
+public class EducationInfoHandler extends GeneralException {
+    public EducationInfoHandler(BaseErrorCode code) {
         super(code);
     }
-
 }
