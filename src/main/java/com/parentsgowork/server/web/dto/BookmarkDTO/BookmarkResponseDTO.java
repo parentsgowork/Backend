@@ -49,4 +49,14 @@ public class BookmarkResponseDTO {
         private String message; // ex) 북마크 삭제가 완료되었습니다.
     }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EducationInfoListDTO {
+        private Long id;
+        private String title;
+        private String url;
+    }
+
 }

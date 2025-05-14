@@ -1,6 +1,7 @@
 package com.parentsgowork.server.repository;
 
 import com.parentsgowork.server.domain.Bookmark;
+import com.parentsgowork.server.domain.EducationInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +14,10 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     @Query("SELECT b FROM Bookmark b " +
             "WHERE b. user.id = :userId")
     List<Bookmark> findBookmarkList(@Param("userId") Long userId);
+
+    @Query("SELECT ei FROM EducationInfo ei " +
+            "WHERE ei. user.id = :userId")
+    List<EducationInfo> findEducationInfoList(@Param("userId") Long userId);
 
     Optional<Bookmark> findByIdAndUserId(@Param("bookmarkId") Long bookmarkId, @Param("userId") Long userId);
 }

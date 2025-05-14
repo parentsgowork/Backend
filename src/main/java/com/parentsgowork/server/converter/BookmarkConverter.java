@@ -1,6 +1,7 @@
 package com.parentsgowork.server.converter;
 
 import com.parentsgowork.server.domain.Bookmark;
+import com.parentsgowork.server.domain.EducationInfo;
 import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkRequestDTO;
 import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkResponseDTO;
 
@@ -52,6 +53,16 @@ public class BookmarkConverter {
                         .deadline(bookmark.getDeadline())
                         .registrationDate(bookmark.getRegistrationDate())
                         .detailUrl(bookmark.getDetailUrl())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public static List<BookmarkResponseDTO.EducationInfoListDTO> getEducationInfoListDTO(List<EducationInfo> educationInfos) {
+        return educationInfos.stream()
+                .map(education -> BookmarkResponseDTO.EducationInfoListDTO.builder()
+                        .id(education.getId())
+                        .title(education.getTitle())
+                        .url(education.getUrl())
                         .build())
                 .collect(Collectors.toList());
     }

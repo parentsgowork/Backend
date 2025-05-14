@@ -4,7 +4,6 @@ import com.parentsgowork.server.apiPayload.ApiResponse;
 import com.parentsgowork.server.service.bookmarkService.BookmarkCommandService;
 import com.parentsgowork.server.service.bookmarkService.BookmarkQueryService;
 import com.parentsgowork.server.web.controller.specification.BookmarkSpecification;
-import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkRequestDTO;
 import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkResponseDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -23,21 +22,12 @@ public class BookmarkController implements BookmarkSpecification {
     private final BookmarkCommandService bookmarkCommandService;
     private final BookmarkQueryService bookmarkQueryService;
 
-    @PostMapping("")
-    public ApiResponse<BookmarkRequestDTO.SaveBookmarkDTO> bookmarkJob(@RequestBody BookmarkRequestDTO.jobInfoBookmarkDTO request) {
+    @GetMapping("/educationInfo")
+    public ApiResponse<List<BookmarkResponseDTO.EducationInfoListDTO>> getEducationInfoList() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        BookmarkRequestDTO.SaveBookmarkDTO response = bookmarkCommandService.bookmarkJob(userId, request.getJobId(), request.getPage());
-        return ApiResponse.onSuccess(response);
-    }
-
-    @GetMapping("")
-    public ApiResponse<List<BookmarkResponseDTO.BookmarkListDTO>> getBookmarkList() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long userId = (Long) authentication.getPrincipal();
-
-        List<BookmarkResponseDTO.BookmarkListDTO> response = bookmarkQueryService.getBookmarkList(userId);
+        List<BookmarkResponseDTO.EducationInfoListDTO> response = bookmarkQueryService.getEducationInfoList(userId);
         return ApiResponse.onSuccess(response);
     }
 
