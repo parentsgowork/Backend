@@ -1,10 +1,10 @@
 package com.parentsgowork.server.web.controller;
 
 import com.parentsgowork.server.apiPayload.ApiResponse;
-import com.parentsgowork.server.service.bookmarkService.BookmarkCommandService;
-import com.parentsgowork.server.service.bookmarkService.BookmarkQueryService;
-import com.parentsgowork.server.web.controller.specification.BookmarkSpecification;
-import com.parentsgowork.server.web.dto.BookmarkDTO.BookmarkResponseDTO;
+import com.parentsgowork.server.service.educationInfoService.EducationInfoCommandService;
+import com.parentsgowork.server.service.educationInfoService.EducationInfoQueryService;
+import com.parentsgowork.server.web.controller.specification.EducationInfoSpecification;
+import com.parentsgowork.server.web.dto.EducationInfoDTO.EducationInfoResponseDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -13,39 +13,39 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Bookmark", description = "북마크 API")
+@Tag(name = "EducationInfo", description = "교육정보 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bookmark")
-public class BookmarkController implements BookmarkSpecification {
+@RequestMapping("/educationInfo")
+public class EducationInfoController implements EducationInfoSpecification {
 
-    private final BookmarkCommandService bookmarkCommandService;
-    private final BookmarkQueryService bookmarkQueryService;
+    private final EducationInfoCommandService educationInfoCommandService;
+    private final EducationInfoQueryService educationInfoQueryService;
 
-    @GetMapping("/educationInfo")
-    public ApiResponse<List<BookmarkResponseDTO.EducationInfoListDTO>> getEducationInfoList() {
+    @GetMapping("")
+    public ApiResponse<List<EducationInfoResponseDTO.EducationInfoListDTO>> getEducationInfoList() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        List<BookmarkResponseDTO.EducationInfoListDTO> response = bookmarkQueryService.getEducationInfoList(userId);
+        List<EducationInfoResponseDTO.EducationInfoListDTO> response = educationInfoQueryService.getEducationInfoList(userId);
         return ApiResponse.onSuccess(response);
     }
 
-    @GetMapping("/educationInfo/{educationInfoId}")
-    public ApiResponse<BookmarkResponseDTO.EducationInfoDetailDTO> getEducationInfoDetails(@PathVariable Long educationInfoId) {
+    @GetMapping("/{educationInfoId}")
+    public ApiResponse<EducationInfoResponseDTO.EducationInfoDetailDTO> getEducationInfoDetails(@PathVariable Long educationInfoId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        BookmarkResponseDTO.EducationInfoDetailDTO response = bookmarkQueryService.getEducationInfoDetails(userId, educationInfoId);
+        EducationInfoResponseDTO.EducationInfoDetailDTO response = educationInfoQueryService.getEducationInfoDetails(userId, educationInfoId);
         return ApiResponse.onSuccess(response);
     }
 
-    @DeleteMapping("/educationInfo/{educationInfoId}")
-    public ApiResponse<BookmarkResponseDTO.DeleteBookmarkDTO> deleteBookmark(@PathVariable("educationInfoId") Long educationInfoId) {
+    @DeleteMapping("/{educationInfoId}")
+    public ApiResponse<EducationInfoResponseDTO.DeleteEducationInfoDTO> deleteEducationInfo(@PathVariable("educationInfoId") Long educationInfoId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        BookmarkResponseDTO.DeleteBookmarkDTO deleteBookmark = bookmarkCommandService.delete(educationInfoId, userId);
-        return ApiResponse.onSuccess(deleteBookmark);
+        EducationInfoResponseDTO.DeleteEducationInfoDTO response = educationInfoCommandService.delete(educationInfoId, userId);
+        return ApiResponse.onSuccess(response);
     }
 }
