@@ -19,15 +19,6 @@ public class BookmarkQueryServiceImpl implements BookmarkQueryService {
     private final BookmarkRepository bookmarkRepository;
 
     @Override
-    public BookmarkResponseDTO.BookmarkDetailInfoDTO getBookmarkDetails(Long userId, Long bookmarkId) {
-
-        Bookmark bookmark = bookmarkRepository.findByIdAndUserId(bookmarkId, userId)
-                .orElseThrow(() -> new BookmarkHandler(ErrorStatus.EDUCATION_INFO_NOT_FOUND));
-
-        return BookmarkConverter.toDetailDTO(bookmark);
-    }
-
-    @Override
     public List<BookmarkResponseDTO.EducationInfoListDTO> getEducationInfoList(Long userId) {
 
         List<EducationInfo> educationInfos = bookmarkRepository.findEducationInfoList(userId);
@@ -37,5 +28,14 @@ public class BookmarkQueryServiceImpl implements BookmarkQueryService {
         }
 
         return BookmarkConverter.getEducationInfoListDTO(educationInfos);
+    }
+
+    @Override
+    public BookmarkResponseDTO.EducationInfoDetailDTO getEducationInfoDetails(Long userId, Long educationInfoId) {
+
+        EducationInfo educationInfo = bookmarkRepository.findByIdAndUserId(educationInfoId, userId)
+                .orElseThrow(() -> new BookmarkHandler(ErrorStatus.EDUCATION_INFO_NOT_FOUND));
+
+        return BookmarkConverter.getEducationInfoDetailDTO(educationInfo);
     }
 }

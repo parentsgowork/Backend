@@ -7,37 +7,27 @@ import lombok.NoArgsConstructor;
 
 public class BookmarkResponseDTO {
 
+
+    // 저장한 교육정보 리스트 dto
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BookmarkListDTO {
+    public static class EducationInfoListDTO {
         private Long id;
-        private Long jobId;
-        private String companyName;
-        private String jobTitle;
-        private String pay;
-        private String time;
-        private String location;
-        private String deadline;
-        private String registrationDate;
-        private String detailUrl;
+        private String title;
+        private String url;
     }
 
+    // 저장한 교육정보 상세페이지 dto
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BookmarkDetailInfoDTO {
+    public static class EducationInfoDetailDTO {
         private Long id;
-        private String jobTitle;
-        private String companyName;
-        private String pay;
-        private String time;
-        private String location;
-        private String deadline;
-        private String registrationDate;
-        private String detailUrl;
+        private String title;
+        private String url;
     }
 
     @Getter
@@ -47,16 +37,6 @@ public class BookmarkResponseDTO {
     public static class DeleteBookmarkDTO {
         private Long id;
         private String message; // ex) 북마크 삭제가 완료되었습니다.
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class EducationInfoListDTO {
-        private Long id;
-        private String title;
-        private String url;
     }
 
 }

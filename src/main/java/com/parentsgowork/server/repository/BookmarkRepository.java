@@ -11,13 +11,9 @@ import java.util.Optional;
 
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 
-    @Query("SELECT b FROM Bookmark b " +
-            "WHERE b. user.id = :userId")
-    List<Bookmark> findBookmarkList(@Param("userId") Long userId);
-
     @Query("SELECT ei FROM EducationInfo ei " +
             "WHERE ei. user.id = :userId")
     List<EducationInfo> findEducationInfoList(@Param("userId") Long userId);
 
-    Optional<Bookmark> findByIdAndUserId(@Param("bookmarkId") Long bookmarkId, @Param("userId") Long userId);
+    Optional<EducationInfo> findByIdAndUserId(@Param("educationInfoId") Long educationInfoId, @Param("userId") Long userId);
 }

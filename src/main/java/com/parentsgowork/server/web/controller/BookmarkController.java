@@ -31,12 +31,12 @@ public class BookmarkController implements BookmarkSpecification {
         return ApiResponse.onSuccess(response);
     }
 
-    @GetMapping("{bookmarkId}")
-    public ApiResponse<BookmarkResponseDTO.BookmarkDetailInfoDTO> getBookmarkDetails(@PathVariable Long bookmarkId) {
+    @GetMapping("/educationInfo/{educationInfoId}")
+    public ApiResponse<BookmarkResponseDTO.EducationInfoDetailDTO> getEducationInfoDetails(@PathVariable Long educationInfoId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        BookmarkResponseDTO.BookmarkDetailInfoDTO response = bookmarkQueryService.getBookmarkDetails(userId, bookmarkId);
+        BookmarkResponseDTO.EducationInfoDetailDTO response = bookmarkQueryService.getEducationInfoDetails(userId, educationInfoId);
         return ApiResponse.onSuccess(response);
     }
 
