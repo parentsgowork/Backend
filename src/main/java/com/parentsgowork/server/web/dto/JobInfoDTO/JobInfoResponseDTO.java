@@ -47,6 +47,7 @@ public class JobInfoResponseDTO {
         private String content;
     }
 
+    // 저장한 구직정보 상세페이지 dto
     @Getter
     @Builder
     @NoArgsConstructor
@@ -56,6 +57,7 @@ public class JobInfoResponseDTO {
         private String content;
     }
 
+    // 저장한 구직정보 삭제 dto
     @Getter
     @Builder
     @NoArgsConstructor

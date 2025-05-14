@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 public class JobInfoRequestDTO {
 
+    // 구직정보 저장 시 dto
     @Getter
     @Builder
     @NoArgsConstructor
