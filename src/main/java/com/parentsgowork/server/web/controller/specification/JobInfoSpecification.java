@@ -16,7 +16,7 @@ import java.util.List;
 public interface JobInfoSpecification {
 
     @GetMapping("/search")
-    @Operation(summary = "구직정보 저장", description = "저장하고 싶은 구직정보의 title과 content값을 보내주세요.")
+    @Operation(summary = "구직정보 조회", description = "구직정보를 조회합니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
