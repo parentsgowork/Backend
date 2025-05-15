@@ -19,7 +19,7 @@ public class EducationInfoCommandServiceImpl implements EducationInfoCommandServ
     private final UserRepository userRepository;
 
     @Override
-    public EducationInfoResponseDTO.DeleteEducationInfoDTO delete(Long userId, Long educationInfoId) {
+    public EducationInfoResponseDTO.DeleteEducationInfoDTO delete(Long educationInfoId, Long userId) {
 
         userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));

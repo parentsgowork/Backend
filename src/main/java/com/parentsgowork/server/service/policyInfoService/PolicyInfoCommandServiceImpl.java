@@ -21,7 +21,7 @@ public class PolicyInfoCommandServiceImpl implements PolicyInfoCommandService {
     private final UserRepository userRepository;
 
     @Override
-    public PolicyInfoResponseDTO.DeletePolicyInfoDTO delete(Long userId, Long policyInfoId) {
+    public PolicyInfoResponseDTO.DeletePolicyInfoDTO delete(Long policyInfoId, Long userId) {
         log.info("[삭제 시도] userId: {}, policyInfoId: {}", userId, policyInfoId);
 
         userRepository.findById(userId)

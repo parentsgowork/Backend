@@ -45,7 +45,7 @@ public class JobInfoCommandServiceImpl implements JobInfoCommandService {
     }
 
     @Override
-    public JobInfoResponseDTO.DeleteJobInfoDTO delete(Long userId, Long jobInfoId) {
+    public JobInfoResponseDTO.DeleteJobInfoDTO delete(Long jobInfoId, Long userId) {
 
         userRepository.findById(userId)
                 .orElseThrow(() -> new JobInfoHandler(ErrorStatus.USER_NOT_FOUND));
