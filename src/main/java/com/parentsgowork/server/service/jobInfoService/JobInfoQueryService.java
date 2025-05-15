@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface JobInfoQueryService {
 
-    List<JobInfoResponseDTO.JobInfoResultDTO> getJobInfoList(Long userId);
+    List<JobInfoResponseDTO.JobInfoListDTO> getJobInfoList(Long userId);
     JobInfoResponseDTO.JobInfoDetailDTO getJobInfoDetails(Long userId, Long jobInfoId);
 }
