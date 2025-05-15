@@ -30,6 +30,13 @@ public class JobInfoCommandServiceImpl implements JobInfoCommandService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
+        for (JobInfoRequestDTO.SaveJobInfoDTO dto : saveJobInfoDTOList) {
+            boolean exists = jobInfoRepository.existsByTitleAndContent(dto.getTitle(), dto.getContent());
+            if (exists) {
+                throw new JobInfoHandler(ErrorStatus.JOB_INFO_ALREADY_EXISTS);
+            }
+        }
+
         List<JobInfo> jobInfos = saveJobInfoDTOList.stream()
                 .map(dto -> JobInfo.builder()
                         .title(dto.getTitle())
