@@ -25,7 +25,7 @@ public class JobInfo extends BaseEntity {
     @Column
     private String title;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String content;
 
 //    @Column(columnDefinition = "TEXT")
