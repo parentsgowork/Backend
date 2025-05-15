@@ -30,6 +30,7 @@ public interface JobInfoSpecification {
     @Operation(summary = "구직정보 저장", description = "저장하고 싶은 구직정보의 title과 content값을 보내주세요.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BOOKMARK4004", description = "❌ 이미 저장한 구직정보입니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
     ApiResponse<List<JobInfoResponseDTO.AddJobResultDTO>> addJobInfo(@RequestBody List<JobInfoRequestDTO.SaveJobInfoDTO> saveJobInfoDTOList);
