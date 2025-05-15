@@ -48,9 +48,8 @@ public enum ErrorStatus implements BaseErrorCode {
     // 북마크 관련 에러
     EDUCATION_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4001", "교육정보가 존재하지 않습니다."),
     POLICY_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4002", "정책정보가 존재하지 않습니다."),
-    JOB_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4003", "구직정보가 존재하지 않습니다.");
-
-
+    JOB_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4003", "구직정보가 존재하지 않습니다."),
+    JOB_INFO_ALREADY_SAVED(HttpStatus.BAD_REQUEST, "BOOKMARK4004", "이미 저장한 구직정보입니다.");
 
 
     private final HttpStatus httpStatus;
