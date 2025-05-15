@@ -18,7 +18,7 @@ public class JobInfoQueryServiceImpl implements JobInfoQueryService {
     private final JobInfoRepository jobInfoRepository;
 
     @Override
-    public List<JobInfoResponseDTO.JobInfoResultDTO> getJobInfoList(Long userId) {
+    public List<JobInfoResponseDTO.JobInfoListDTO> getJobInfoList(Long userId) {
 
         List<JobInfo> jobInfos = jobInfoRepository.findJobInfoList(userId);
 

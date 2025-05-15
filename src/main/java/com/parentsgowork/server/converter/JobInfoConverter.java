@@ -15,9 +15,10 @@ public class JobInfoConverter {
                 .build();
     }
 
-    public static List<JobInfoResponseDTO.JobInfoResultDTO> getJobInfoListDTO(List<JobInfo> jobInfos) {
+    public static List<JobInfoResponseDTO.JobInfoListDTO> getJobInfoListDTO(List<JobInfo> jobInfos) {
         return jobInfos.stream()
-                .map(job -> JobInfoResponseDTO.JobInfoResultDTO.builder()
+                .map(job -> JobInfoResponseDTO.JobInfoListDTO.builder()
+                        .id(job.getId())
                         .title(job.getTitle())
                         .content(job.getContent())
                         .build())
