@@ -40,7 +40,7 @@ public interface JobInfoSpecification {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
-    ApiResponse<List<JobInfoResponseDTO.JobInfoResultDTO>> getJobInfoList();
+    ApiResponse<List<JobInfoResponseDTO.JobInfoListDTO>> getJobInfoList();
 
     @GetMapping("/{jobInfoId}")
     @Operation(summary = "특정 구직정보 조회", description = "내가 저장한 특정 구직정보를 조회합니다. 구직정보 아이디 값을 보내주세요.")

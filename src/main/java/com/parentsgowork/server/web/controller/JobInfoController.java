@@ -75,11 +75,11 @@ public class JobInfoController implements JobInfoSpecification {
     }
 
     @GetMapping("")
-    public ApiResponse<List<JobInfoResponseDTO.JobInfoResultDTO>> getJobInfoList() {
+    public ApiResponse<List<JobInfoResponseDTO.JobInfoListDTO>> getJobInfoList() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
 
-        List<JobInfoResponseDTO.JobInfoResultDTO> response = jobInfoQueryService.getJobInfoList(userId);
+        List<JobInfoResponseDTO.JobInfoListDTO> response = jobInfoQueryService.getJobInfoList(userId);
         return ApiResponse.onSuccess(response);
     }
 

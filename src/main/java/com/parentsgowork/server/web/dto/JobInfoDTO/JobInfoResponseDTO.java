@@ -47,6 +47,16 @@ public class JobInfoResponseDTO {
         private String content;
     }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class JobInfoListDTO {
+        private Long id;
+        private String title;
+        private String content;
+    }
+
     // 저장한 구직정보 상세페이지 dto
     @Getter
     @Builder
