@@ -38,6 +38,7 @@ public interface JobInfoSpecification {
     @Operation(summary = "내가 저장한 구직정보 리스트 조회", description = "내가 저장한 구직정보 리스트를 조회합니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BOOKMARK4003", description = "❌ 구직정보가 존재하지 않습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
     ApiResponse<List<JobInfoResponseDTO.JobInfoListDTO>> getJobInfoList();
@@ -46,6 +47,7 @@ public interface JobInfoSpecification {
     @Operation(summary = "특정 구직정보 조회", description = "내가 저장한 특정 구직정보를 조회합니다. 구직정보 아이디 값을 보내주세요.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BOOKMARK4003", description = "❌ 구직정보가 존재하지 않습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
     ApiResponse<JobInfoResponseDTO.JobInfoDetailDTO> getJobInfoDetails(@PathVariable Long jobInfoId);
@@ -54,6 +56,7 @@ public interface JobInfoSpecification {
     @Operation(summary = "내가 저장한 구직정보 삭제", description = "내가 저장한 특정 구직정보를 삭제합니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BOOKMARK4003", description = "❌ 구직정보가 존재하지 않습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
     ApiResponse<JobInfoResponseDTO.DeleteJobInfoDTO> deleteJobInfo(@PathVariable("jobInfoId") Long jobInfoId);
