@@ -2,8 +2,8 @@ package com.parentsgowork.server.apiPayload.exception;
 
 import com.parentsgowork.server.apiPayload.code.BaseErrorCode;
 
-public class JobInfoCrawlingHandler extends GeneralException {
-    public JobInfoCrawlingHandler(BaseErrorCode code) {
+public class JobInfoHandler extends GeneralException {
+    public JobInfoHandler(BaseErrorCode code) {
         super(code);
     }
 }

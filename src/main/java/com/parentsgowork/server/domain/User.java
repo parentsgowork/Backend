@@ -63,7 +63,7 @@ public class User extends BaseEntity {
     private RefreshToken refreshToken;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Bookmark> bookmarks;
+    private List<JobInfo> bookmarks;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<PolicyInfo> policyInfos;

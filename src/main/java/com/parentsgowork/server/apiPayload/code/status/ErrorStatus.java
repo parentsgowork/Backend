@@ -46,8 +46,9 @@ public enum ErrorStatus implements BaseErrorCode {
     EMAIL_ENCODING_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH5002", "이메일 내용 인코딩에 실패했습니다."),
 
     // 북마크 관련 에러
-    EDUCATION_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4001", "북마크한 교육정보가 존재하지 않습니다."),
-    POLICY_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4002", "북마크한 정책정보가 존재하지 않습니다.");
+    EDUCATION_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4001", "교육정보가 존재하지 않습니다."),
+    POLICY_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4002", "정책정보가 존재하지 않습니다."),
+    JOB_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "BOOKMARK4003", "구직정보가 존재하지 않습니다.");
 
 
 
