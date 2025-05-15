@@ -14,4 +14,7 @@ public interface JobInfoRepository extends JpaRepository<JobInfo, Long> {
     List<JobInfo> findJobInfoList(@Param("userId") Long userId);
 
     Optional<JobInfo> findByIdAndUserId(@Param("jobInfoId") Long jobInfoId, @Param("userId") Long userId);
+
+    boolean existsByTitleAndContent(String title, String content);
+
 }
