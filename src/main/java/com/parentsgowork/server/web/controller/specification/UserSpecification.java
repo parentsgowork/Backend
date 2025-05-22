@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface UserSpecification {
 
     @GetMapping("")
-    @Operation(summary = "회원정보 조회 API", description = "회원정보를 조회하는 API입니다.", security = @SecurityRequirement(name = "tempToken"))
+    @Operation(summary = "회원정보 조회 API", description = "회원정보를 조회하는 API입니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "USER4001", description = "❌ 회원을 찾을 수 없습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
