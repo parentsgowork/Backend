@@ -25,6 +25,7 @@ public class UserController implements UserSpecification {
     private final UserCommandService userCommandService;
     private final UserQueryService userQueryService;
 
+    @Override
     @GetMapping("")
     public ApiResponse<UserResponseDTO.UserPageInfoDTO> getUserPageInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

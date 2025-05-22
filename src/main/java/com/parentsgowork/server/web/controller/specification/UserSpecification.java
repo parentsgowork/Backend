@@ -9,10 +9,20 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public interface UserSpecification {
+
+    @GetMapping("")
+    @Operation(summary = "회원정보 조회 API", description = "회원정보를 조회하는 API입니다.", security = @SecurityRequirement(name = "tempToken"))
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "⭕ SUCCESS, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "USER4001", description = "❌ 회원을 찾을 수 없습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "❌ BAD, 잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    ApiResponse<UserResponseDTO.UserPageInfoDTO> getUserPageInfo();
 
     @PatchMapping("/password")
     @Operation(summary = "비밀번호 변경 API", description = "사용자의 비밀번호를 변경하는 API입니다.", security = @SecurityRequirement(name = "tempToken"))
