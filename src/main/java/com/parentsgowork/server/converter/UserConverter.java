@@ -24,6 +24,21 @@ public class UserConverter {
                 .build();
     }
 
+    public static UserResponseDTO.UserPageInfoDTO toGetUserInfo(User user) {
+        return UserResponseDTO.UserPageInfoDTO.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .age(user.getAge())
+                .gender(user.getGender())
+                .region(user.getRegion())
+                .job(user.getJob())
+                .career(user.getCareer())
+                .finalEdu(user.getFinalEdu())
+                .build();
+    }
+
+
+
     public static UserResponseDTO.DeleteUserResponseDTO toDeletedUser(User deleteUser) {
         return UserResponseDTO.DeleteUserResponseDTO.builder()
                 .name(deleteUser.getName())
