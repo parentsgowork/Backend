@@ -1,5 +1,7 @@
 package com.parentsgowork.server.repository;
 
+import com.parentsgowork.server.domain.EducationInfo;
+import com.parentsgowork.server.domain.JobInfo;
 import com.parentsgowork.server.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
